@@ -42,6 +42,7 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "git-branch-is": "^4.0.0",
     "husky": "^8.0.0",
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.1",
