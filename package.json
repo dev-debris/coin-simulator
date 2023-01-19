@@ -45,7 +45,6 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "^11.10.5",
     "@emotion/babel-preset-css-prop": "^11.10.0",
     "git-branch-is": "^4.0.0",
     "husky": "^8.0.0",
