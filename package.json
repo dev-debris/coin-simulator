@@ -1,5 +1,5 @@
 {
-  "name": "resume",
+  "name": "stock-simulator",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -44,6 +44,8 @@
   },
   "devDependencies": {
     "@emotion/babel-preset-css-prop": "^11.10.0",
+    "eslint": "^8.34.0",
+    "eslint-config-next": "^13.1.6",
     "git-branch-is": "^4.0.0",
     "husky": "^8.0.0",
     "lint-staged": "^13.1.0",
