@@ -5,8 +5,10 @@ function Container({children}) {
 }
 
 const Wrapper = styled.div`
-  background-color: #fff;
+  width: 100%;
   height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
 `;
 
 export default Container;
