@@ -12,7 +12,11 @@ function GlobalStyle() {
           width: 100%;
         }
 
-        #root {
+        body {
+          background-color: #fafafa;
+        }
+
+        #__next {
           height: 100%;
         }
 
