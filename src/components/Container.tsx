@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-function Container({children}) {
+function Container({children}: ChildrenProp) {
   return <Wrapper>{children}</Wrapper>;
 }
 
