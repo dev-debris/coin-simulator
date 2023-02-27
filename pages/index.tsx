@@ -1,10 +1,5 @@
 import styled from '@emotion/styled';
-import Container from '../src/components/Container';
-import Portfolio from '../src/components/Portfolio';
-import Search from '../src/components/Search';
-import StockDetail from '../src/components/StockDetail';
-import StockList from '../src/components/StockList';
-import Trade from '../src/components/Trade';
+import {Container, Portfolio, Search, StockDetail, StockList, Trade} from '@/components';
 
 function HomePage() {
   return (
