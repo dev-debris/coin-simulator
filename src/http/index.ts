@@ -1,26 +1,32 @@
-const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
+const UPBIT_API_ENDPOINT = process.env.NEXT_PUBLIC_UPBIT_API_ENDPOINT;
 
-const options = {method: 'GET', headers: {accept: 'application/json'}};
+const getOptions = {method: 'GET', headers: {accept: 'application/json'}};
 
-const generateQueryString = (params: CandleRequest) => {
-  const {unit} = params;
-  return (
-    (unit ? `/${unit}` : '') +
-    `?${Object.entries(params)
-      .filter(([k, v]) => v && k !== 'unit')
-      .map(([k, v]) => `&${k}=${v}`)
-      .join('&')}`
-  );
+const generateFullUri = (url: string, {paths, queries}: AdditionalUriInfo) => {
+  if (paths?.length) {
+    url += `/${paths.join('/')}`;
+  }
+
+  if (Object.keys(queries).length) {
+    url += `?${Object.entries(queries)
+      .filter(([, v]) => v)
+      .map(([k, v]) => `${k}=${v}`)
+      .join('&')}`;
+  }
+
+  return url;
 };
 
-const getCandles =
-  <T extends CandleRequest>(type: CandleType) =>
-  async (params: T) => {
-    const queryString = generateQueryString(params);
-    return await fetch(`${API_ENDPOINT}/${type}${queryString}`, options).then(res => res.json());
+const getRequest =
+  <T extends AdditionalUriInfo>(endpoint: string) =>
+  async (additionalUriInfo: T) => {
+    const uri = generateFullUri(endpoint, additionalUriInfo);
+    const res = await fetch(uri, getOptions);
+    if (!res.ok) return Promise.reject(res);
+    return await res.json();
   };
 
-export const getMinuteCandles = getCandles<MinuteCandleRequest>('minutes');
-export const getDayCandles = getCandles<DayCandleRequest>('days');
-export const getWeekCandles = getCandles<WeekCandleRequest>('weeks');
-export const getMonthCandles = getCandles<MonthCandleRequest>('months');
+export const getMinutesCandles = getRequest<MinuteCandleRequest>(`${UPBIT_API_ENDPOINT}/candles/minutes`);
+export const getDaysCandles = getRequest<DayCandleRequest>(`${UPBIT_API_ENDPOINT}/candles/days`);
+export const getWeeksCandles = getRequest<WeekCandleRequest>(`${UPBIT_API_ENDPOINT}/candles/weeks`);
+export const getMonthsCandles = getRequest<MonthCandleRequest>(`${UPBIT_API_ENDPOINT}/candles/months`);
