@@ -22,3 +22,7 @@ type DayCandleRequest = CandleRequest & {
 type WeekCandleRequest = CandleRequest;
 
 type MonthCandleRequest = CandleRequest;
+
+interface TickerRequest extends AdditionalUriInfo {
+  queries: {market: string};
+}
