@@ -1,21 +1,24 @@
-type OneTo200 = IntRange<1, 201>;
-type MinuteUnit = 1 | 3 | 5 | 15 | 10 | 30 | 60 | 240;
-type CandleType = 'minutes' | 'days' | 'weeks' | 'months';
-
-interface CandleRequest {
-  [x: string]: unknown;
-  market: string;
-  to?: string;
-  count?: OneTo200;
+interface AdditionalUriInfo {
+  paths?: (string | number)[];
+  queries?: IndexdObject;
 }
 
-interface MinuteCandleRequest extends CandleRequest {
-  unit: MinuteUnit;
+interface CandleRequest extends AdditionalUriInfo {
+  queries: {
+    market: string;
+    to?: string;
+    count?: IntRange<1, 201>;
+  };
 }
 
-interface DayCandleRequest extends CandleRequest {
-  convertingPriceUnit?: string;
-}
+type MinuteCandleRequest = CandleRequest & {
+  paths: [unit: 1 | 3 | 5 | 15 | 10 | 30 | 60 | 240];
+};
 
-interface WeekCandleRequest extends CandleRequest {}
-interface MonthCandleRequest extends CandleRequest {}
+type DayCandleRequest = CandleRequest & {
+  queries: {convertingPriceUnit?: string};
+};
+
+type WeekCandleRequest = CandleRequest;
+
+type MonthCandleRequest = CandleRequest;

@@ -1,5 +1,4 @@
 interface CandleResponse {
-  [x: string]: unknown;
   market: string;
   candle_date_time_utc: string;
   candle_date_time_kst: string;
