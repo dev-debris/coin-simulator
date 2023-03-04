@@ -9,8 +9,8 @@
     "start": "next start"
   },
   "lint-staged": {
-    "*.{js,jsx}": "eslint --fix",
-    "*.{js,jsx,json,html,css}": "prettier --write",
+    "*.{js,jsx,ts,tsx}": "eslint --fix",
+    "*.{js,jsx,ts,tsx,json,html,css}": "prettier --write",
     "package.json": "sort-package-json"
   },
   "browserslist": {
