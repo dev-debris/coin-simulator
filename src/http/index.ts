@@ -1,6 +1,6 @@
-const UPBIT_API_ENDPOINT = process.env.NEXT_PUBLIC_UPBIT_API_ENDPOINT;
+import {PUBLIC_API_ENDPOINT} from '@/constants/request.const';
 
-const getOptions = {method: 'GET', headers: {accept: 'application/json'}};
+const UPBIT_API_ENDPOINT = PUBLIC_API_ENDPOINT.upbit;
 
 const generateFullUri = (url: string, {paths, queries}: AdditionalUriInfo) => {
   if (paths?.length) {
@@ -17,14 +17,14 @@ const generateFullUri = (url: string, {paths, queries}: AdditionalUriInfo) => {
   return url;
 };
 
-const getRequest =
-  <T extends AdditionalUriInfo>(endpoint: string) =>
-  async (additionalUriInfo: T) => {
+const getRequest = <T extends AdditionalUriInfo>(endpoint: string) => {
+  return async function (additionalUriInfo: T) {
     const uri = generateFullUri(endpoint, additionalUriInfo);
-    const res = await fetch(uri, getOptions);
+    const res = await fetch(uri, {method: 'GET', headers: {accept: 'application/json'}});
     if (!res.ok) return Promise.reject(res);
     return await res.json();
   };
+};
 
 export const getMinutesCandles = getRequest<MinuteCandleRequest>(`${UPBIT_API_ENDPOINT}/candles/minutes`);
 export const getDaysCandles = getRequest<DayCandleRequest>(`${UPBIT_API_ENDPOINT}/candles/days`);
