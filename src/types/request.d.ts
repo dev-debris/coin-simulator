@@ -7,7 +7,7 @@ interface CandleRequest extends AdditionalUriInfo {
   queries: {
     market: string;
     to?: string;
-    count?: IntRange<1, 201>;
+    count?: number;
   };
 }
 
