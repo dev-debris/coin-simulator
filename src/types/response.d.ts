@@ -26,7 +26,9 @@ interface WeekCandleResponse extends CandleResponse {
   first_day_of_period: string;
 }
 
-interface MonthCandleResponse extends WeekCandleResponse {}
+interface MonthCandleResponse extends CandleResponse {
+  first_day_of_period: string;
+}
 
 interface TickerResponse {
   market: string;
