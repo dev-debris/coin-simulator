@@ -5,5 +5,5 @@ type Enumerate<N extends number, Acc extends number[] = []> = Acc['length'] exte
 type IntRange<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>;
 
 interface IndexdObject<T = any> {
-  [x: strgin]: T;
+  [x: string]: T;
 }
