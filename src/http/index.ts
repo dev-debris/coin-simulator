@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {PUBLIC_API_ENDPOINT} from '@/constants/request.const';
 
 const UPBIT_API_ENDPOINT = PUBLIC_API_ENDPOINT.upbit;
@@ -20,9 +21,7 @@ const generateFullUri = (url: string, {paths, queries}: AdditionalUriInfo) => {
 const getRequest = <T extends AdditionalUriInfo>(endpoint: string) => {
   return async function (additionalUriInfo: T) {
     const uri = generateFullUri(endpoint, additionalUriInfo);
-    const res = await fetch(uri, {method: 'GET', headers: {accept: 'application/json'}});
-    if (!res.ok) return Promise.reject(res);
-    return await res.json();
+    return await axios(uri, {method: 'GET', headers: {accept: 'application/json'}});
   };
 };
 
