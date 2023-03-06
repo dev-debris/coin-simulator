@@ -21,7 +21,8 @@ const generateFullUri = (url: string, {paths, queries}: AdditionalUriInfo) => {
 const getRequest = <T extends AdditionalUriInfo>(endpoint: string) => {
   return async function (additionalUriInfo: T) {
     const uri = generateFullUri(endpoint, additionalUriInfo);
-    return await axios(uri, {method: 'GET', headers: {accept: 'application/json'}});
+    const {data} = await axios(uri, {method: 'GET', headers: {accept: 'application/json'}});
+    return data;
   };
 };
 
