@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
-import ReactApexChart, {Props} from 'react-apexcharts';
+import dynamic from 'next/dynamic';
 import {useStockDetail} from '@/hooks';
 import StockDetailInfo from './StockDetailInfo';
+
+const ApexChart = dynamic(() => import('react-apexcharts').then(ReactApexChart => ReactApexChart), {ssr: false});
 
 function StockDetail({ticker}: StockDetailProp) {
   const {convertedTicker} = useStockDetail(ticker);
@@ -270,12 +272,12 @@ function StockDetail({ticker}: StockDetailProp) {
         },
       },
     },
-  } as Props;
+  } as ApexChartProp;
 
   return (
     <Wrapper>
       <StockDetailInfo {...convertedTicker} />
-      <ReactApexChart type={'candlestick'} {...candleMockData} />
+      <ApexChart type={'candlestick'} {...candleMockData} />
     </Wrapper>
   );
 }
