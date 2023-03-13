@@ -3,6 +3,8 @@ interface AdditionalUriInfo {
   queries?: IndexdObject;
 }
 
+type CandleType = 'minutes' | 'days' | 'weeks' | 'months';
+
 interface CandleRequest extends AdditionalUriInfo {
   queries: {
     market: string;
