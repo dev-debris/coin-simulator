@@ -32,3 +32,5 @@ interface TickerRequest extends AdditionalUriInfo {
 interface MarketRequest extends AddtionalUriInfo {
   queries: {isDetails: boolean};
 }
+
+type CandleType = 'minute' | 'day' | 'week' | 'month';
