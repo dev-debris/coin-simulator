@@ -17,3 +17,7 @@ interface PortfolioProp {
 interface StockDetailProp {
   ticker: TickerResponse;
 }
+
+interface StockChartProp {
+  datas: CandleResponse[];
+}
