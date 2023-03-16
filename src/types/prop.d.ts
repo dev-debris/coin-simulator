@@ -14,6 +14,10 @@ interface PortfolioProp {
   }>;
 }
 
+interface StockListItemProp {
+  ticker: MarketResponse;
+}
+
 interface StockDetailProp {
   ticker: TickerResponse;
 }

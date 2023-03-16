@@ -1,22 +1,26 @@
 import styled from '@emotion/styled';
+import {useQuery} from '@tanstack/react-query';
 import {useState, useEffect} from 'react';
+import {QUERY_KEYS} from '@/constants/request.const';
 import {getMarkets} from '@/http';
 import StockListItem from './StockListItem';
 
 function StockList() {
-  const [stocks, setStocks] = useState([]);
+  const {data} = useQuery([QUERY_KEYS.markets], {
+    queryFn: () => getMarkets({queries: {isDetails: false}}),
+  });
 
-  useEffect(() => {
-    getMarkets({queries: {isDetails: false}})
-      .then(data => data.filter(stock => stock.market.includes('KRW')))
-      .then(data => setStocks(data));
-  }, []);
+  if (!data) {
+    return;
+  }
+
+  const filteredData = data.filter((ticker: {market: string | string[]}) => ticker.market.includes('KRW'));
 
   return (
     <Wrapper>
       <BorderNone>
-        {stocks.slice(0, 10).map(stock => (
-          <StockListItem stock={stock} key={stock.market} />
+        {filteredData.slice(0, 10).map((ticker: MarketResponse) => (
+          <StockListItem ticker={ticker} key={ticker.market} />
         ))}
       </BorderNone>
     </Wrapper>

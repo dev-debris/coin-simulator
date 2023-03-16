@@ -1,16 +1,16 @@
 import styled from '@emotion/styled';
-import {useEffect, useState} from 'react';
+import {useQuery} from '@tanstack/react-query';
+import {useState} from 'react';
 import {getTicker} from '@/http';
 
-function StockListItem({stock}: {stock: MarketResponse}) {
-  const [stockInfo, setStockInfo] = useState([]);
+function StockListItem({ticker}: StockListItemProp) {
   const [isFavorite, setFavortie] = useState(false);
 
-  useEffect(() => {
-    getTicker({queries: {markets: stock.market}}).then(data => setStockInfo(data));
-  }, [stock.market]);
+  const {data} = useQuery([ticker.market], {
+    queryFn: () => getTicker({queries: {markets: ticker.market}}),
+  });
 
-  if (!stockInfo.length) {
+  if (!data) {
     return (
       <tbody>
         <tr>
@@ -22,8 +22,8 @@ function StockListItem({stock}: {stock: MarketResponse}) {
     );
   }
 
-  const fixedAccTradePrice = Math.floor(stockInfo[0].acc_trade_price_24h / 1000000);
-  const fixedChangeRate = Math.round(stockInfo[0].signed_change_rate * 1000) / 1000;
+  const fixedAccTradePrice = Math.floor(data[0].acc_trade_price_24h / 1000000);
+  const fixedChangeRate = Math.round(data[0].signed_change_rate * 1000) / 1000;
   function toggleFavorite() {
     isFavorite ? setFavortie(false) : setFavortie(true);
   }
@@ -34,8 +34,8 @@ function StockListItem({stock}: {stock: MarketResponse}) {
         <td rowSpan={2}>
           <Favorites onClick={toggleFavorite}>{isFavorite ? '★' : '☆'}</Favorites>
         </td>
-        <StockName>{stock.korean_name}</StockName>
-        <StockPrice fixedChangeRate={fixedChangeRate}>{stockInfo[0].trade_price}</StockPrice>
+        <StockName>{ticker.korean_name}</StockName>
+        <StockPrice fixedChangeRate={fixedChangeRate}>{data[0].trade_price}</StockPrice>
       </tr>
       <tr>
         <StockChangeRate fixedChangeRate={fixedChangeRate}>{fixedChangeRate}%</StockChangeRate>
