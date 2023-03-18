@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 
 export const Wrapper = styled.section`
   flex: 1 1 auto;
-  background-color: #fff;
+  background-color: ${props => props.theme.colors.BACKGROUND_MAIN};
   padding: 20px 0;
 `;
 
 export const Title = styled.h2`
-  color: #333;
+  color: ${props => props.theme.colors.FONT_MAIN};
   font-size: 1.2rem;
   margin-bottom: 20px;
   margin-left: 20px;
@@ -17,7 +17,7 @@ export const SubTitle = styled.h3`
   width: 50%;
   font-size: 12px;
   font-weight: bold;
-  color: #333;
+  color: ${props => props.theme.colors.FONT_MAIN};
 `;
 
 export const Header = styled.header<{identifier?: string}>`
@@ -35,13 +35,18 @@ export const Header = styled.header<{identifier?: string}>`
 `;
 
 export const DescriptionList = styled.dl<{identifier?: string}>`
-  ${({identifier}) => {
+  ${({
+    identifier,
+    theme: {
+      colors: {FONT_MAIN, BACKGROUND_SUB},
+    },
+  }) => {
     switch (identifier) {
       case 'coinListItemHeader': {
         return {
           width: '50%',
           fontSize: '12px',
-          color: '#333',
+          color: FONT_MAIN,
           display: 'flex',
           flexDirection: 'column',
         };
@@ -58,7 +63,7 @@ export const DescriptionList = styled.dl<{identifier?: string}>`
             left: '10px',
             width: 'calc(100% - 20px)',
             height: '1px',
-            backgroundColor: '#f1f1f4',
+            backgroundColor: BACKGROUND_SUB,
           },
         };
       }
@@ -104,18 +109,23 @@ export const DescriptionListSubItem = styled.div`
 `;
 
 export const DescriptionTerm = styled.dt<{identifier?: string}>`
-  ${({identifier}) => {
+  ${({
+    identifier,
+    theme: {
+      colors: {FONT_SUB, FONT_SUB_BOLD},
+    },
+  }) => {
     switch (identifier) {
       case 'header': {
         return {
-          color: '#666',
+          color: FONT_SUB_BOLD,
           fontSize: '14px',
         };
       }
 
       case 'coinListItemBody': {
         return {
-          color: '#999',
+          color: FONT_SUB,
           fontSize: '11px',
         };
       }
@@ -124,11 +134,17 @@ export const DescriptionTerm = styled.dt<{identifier?: string}>`
 `;
 
 export const DescriptionDetails = styled.dd<{identifier?: string; value?: number}>`
-  ${({identifier, value}) => {
+  ${({
+    identifier,
+    value,
+    theme: {
+      colors: {RISE, FONT_MAIN, FALL},
+    },
+  }) => {
     switch (identifier) {
       case 'header': {
         return {
-          color: '#333',
+          color: FONT_MAIN,
           fontSize: '20px',
           fontWeight: 'bold',
         };
@@ -136,7 +152,7 @@ export const DescriptionDetails = styled.dd<{identifier?: string; value?: number
 
       case 'coinListItemHeader': {
         return {
-          color: value > 0 ? 'red' : value === 0 ? '#333' : 'blue',
+          color: value > 0 ? RISE : value === 0 ? FONT_MAIN : FALL,
         };
       }
 
@@ -150,18 +166,23 @@ export const DescriptionDetails = styled.dd<{identifier?: string; value?: number
 `;
 
 export const Unit = styled.i<{identifier?: string}>`
-  ${({identifier}) => {
+  ${({
+    identifier,
+    theme: {
+      colors: {FONT_SUB, FONT_MAIN_BOLD},
+    },
+  }) => {
     switch (identifier) {
       case 'header': {
         return {
-          color: '#999',
+          color: FONT_SUB,
           fontSize: '11px',
         };
       }
 
       case 'coinListItemBody': {
         return {
-          color: '#000',
+          color: FONT_MAIN_BOLD,
           fontSize: '12px',
           fontWeight: 'bold',
         };
@@ -178,9 +199,15 @@ export const UnorderedList = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  border-top: 1px solid #ddd;
+  ${({
+    theme: {
+      colors: {BORDER},
+    },
+  }) => ({
+    borderTop: `1px solid ${BORDER}`,
 
-  &:last-child {
-    border-bottom: 1px solid #ddd;
-  }
+    '&:last-child': {
+      borderBottom: `1px solid ${BORDER}`,
+    },
+  })}
 `;
