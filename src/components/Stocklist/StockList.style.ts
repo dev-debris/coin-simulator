@@ -21,20 +21,20 @@ export const Buttons = styled.div`
   justify-content: space-between;
 `;
 
-export const PrevButton = styled.button<{page: number}>`
+export const PrevButton = styled.button<{page: number; firstPage: number}>`
   padding: 0;
   margin: 0;
   border: 0;
   background-color: rgba(0, 0, 0, 0);
-  color: ${props => (props.page === 0 ? 'gray' : 'black')};
-  cursor: pointer;
+  color: ${props => (props.page === props.firstPage ? 'gray' : 'black')};
+  cursor: ${props => (props.page === props.firstPage ? 'default' : 'pointer')};
 `;
 
-export const NextButton = styled.button<{page: number}>`
+export const NextButton = styled.button<{page: number; lastPage: number}>`
   padding: 0;
   margin: 0;
   border: 0;
   background-color: rgba(0, 0, 0, 0);
-  color: ${props => (props.page === 11 ? 'gray' : 'black')};
-  cursor: pointer;
+  color: ${props => (props.page === props.lastPage ? 'gray' : 'black')};
+  cursor: ${props => (props.page === props.lastPage ? 'default' : 'pointer')};
 `;

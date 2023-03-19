@@ -4,7 +4,9 @@ import {getTicker} from '@/http';
 import * as S from './StockListItem.style';
 
 function StockListItem({ticker}: StockListItemProp) {
-  const [isFavorite, setFavortie] = useState(false);
+  const favoriteState = localStorage.getItem(`${ticker.market}`);
+
+  const [isFavorite, setFavortie] = useState(favoriteState || false);
 
   const {data} = useQuery([ticker.market], {
     queryFn: () => getTicker({queries: {markets: ticker.market}}),
@@ -26,6 +28,7 @@ function StockListItem({ticker}: StockListItemProp) {
   const fixedChangeRate = Math.round(data[0].signed_change_rate * 1000) / 1000;
   function toggleFavorite() {
     isFavorite ? setFavortie(false) : setFavortie(true);
+    localStorage.setItem(`${ticker.market}`, `${isFavorite}`);
   }
 
   return (

@@ -6,7 +6,7 @@ import * as S from './StockList.style';
 import StockListItem from './StockListItem';
 
 function StockList() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState<number>(0);
 
   const {data} = useQuery([QUERY_KEYS.markets], {
     queryFn: () => getMarkets({queries: {isDetails: false}}),
@@ -16,8 +16,14 @@ function StockList() {
     return;
   }
 
+  const filteredData = data.filter((ticker: {market: string | string[]}) => ticker.market.includes('KRW'));
+
+  const firstPage = 0;
+
+  const lastPage = Math.floor(filteredData.length / 10);
+
   const prevPage = () => {
-    if (page === 0) {
+    if (page === firstPage) {
       return;
     } else {
       return setPage(page - 1);
@@ -25,14 +31,12 @@ function StockList() {
   };
 
   const nextPage = () => {
-    if (page === 11) {
+    if (page === lastPage) {
       return;
     } else {
       return setPage(page + 1);
     }
   };
-
-  const filteredData = data.filter((ticker: {market: string | string[]}) => ticker.market.includes('KRW'));
 
   return (
     <S.Wrapper>
@@ -42,10 +46,10 @@ function StockList() {
         ))}
       </S.BorderNone>
       <S.Buttons>
-        <S.PrevButton page={page} onClick={prevPage}>
+        <S.PrevButton page={page} firstPage={firstPage} onClick={prevPage}>
           Prev
         </S.PrevButton>
-        <S.NextButton page={page} onClick={nextPage}>
+        <S.NextButton page={page} lastPage={lastPage} onClick={nextPage}>
           Next
         </S.NextButton>
       </S.Buttons>
