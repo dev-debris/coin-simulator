@@ -1,6 +1,6 @@
 import {useQuery} from '@tanstack/react-query';
 import {useState} from 'react';
-import {QUERY_KEYS} from '@/constants/request.const';
+import {QUERY_KEYS} from '@/constants';
 import {getMarkets} from '@/http';
 import * as S from './StockList.style';
 import StockListItem from './StockListItem';
@@ -10,17 +10,15 @@ function StockList() {
 
   const {data} = useQuery([QUERY_KEYS.markets], {
     queryFn: () => getMarkets({queries: {isDetails: false}}),
+    select: data => data.filter(market => market.market.includes('KRW')),
   });
 
   if (!data) {
-    return;
+    return <div>loading</div>;
   }
 
-  const filteredData = data.filter((ticker: {market: string | string[]}) => ticker.market.includes('KRW'));
-
   const firstPage = 0;
-
-  const lastPage = Math.floor(filteredData.length / 10);
+  const lastPage = Math.floor(data.length / 10);
 
   const prevPage = () => {
     if (page === firstPage) {
@@ -41,8 +39,8 @@ function StockList() {
   return (
     <S.Wrapper>
       <S.BorderNone>
-        {filteredData.slice(page * 10, (page + 1) * 10).map((ticker: MarketResponse) => (
-          <StockListItem ticker={ticker} key={ticker.market} />
+        {data.slice(page * 10, (page + 1) * 10).map(market => (
+          <StockListItem ticker={market} key={market.market} />
         ))}
       </S.BorderNone>
       <S.Buttons>

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import {useQuery} from '@tanstack/react-query';
 import {Container, Portfolio, Search, StockDetail, StockList, Trade} from '@/components';
-import {MARKET_CODE, QUERY_KEYS} from '@/constants/request.const';
+import {MARKET_CODE, QUERY_KEYS} from '@/constants';
 import {getTicker} from '../src/http/index';
 
 function HomePage() {

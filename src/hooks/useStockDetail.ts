@@ -1,6 +1,6 @@
 import useCandleData from './useCandleData';
 
-const useStockDetail = (ticker: TickerResponse) => {
+const useStockDetail = (ticker: Ticker) => {
   const data = useCandleData();
 
   const converToKrw = (no: number) => new Intl.NumberFormat('kr', {style: 'currency', currency: 'KRW'}).format(no);
@@ -10,7 +10,7 @@ const useStockDetail = (ticker: TickerResponse) => {
       ...ticker,
       [k]: k.includes('price') ? converToKrw(v) : v,
     }),
-    {} as TickerResponse
+    {} as Ticker
   );
 
   return {data, convertedTicker};

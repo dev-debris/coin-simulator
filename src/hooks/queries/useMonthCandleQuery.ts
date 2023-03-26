@@ -1,11 +1,11 @@
 import {useQuery} from '@tanstack/react-query';
-import {MARKET_CODE, QUERY_KEYS} from '@/constants/request.const';
+import {QUERY_KEYS} from '@/constants';
 import {getMonthsCandles} from '@/http';
 
-const useMonthCandleQuery = ({queries = {count: 20, market: MARKET_CODE['krw-btc']}}: MonthCandleRequest) => {
-  return useQuery<MonthCandleResponse[]>([QUERY_KEYS.candles, 'month'], {
-    queryFn: () => getMonthsCandles({queries}),
+const useMonthCandleQuery = (request: MonthCandleRequest) => {
+  return useQuery([QUERY_KEYS.candles, 'month'], {
     initialData: [],
+    queryFn: () => getMonthsCandles(request),
   });
 };
 

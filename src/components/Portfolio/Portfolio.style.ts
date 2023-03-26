@@ -135,6 +135,8 @@ export const DescriptionDetails = styled.dd<{identifier?: string; value?: number
       }
 
       case 'coinListItemHeader': {
+        value = value || 0;
+
         return {
           color: value > 0 ? 'red' : value === 0 ? '#333' : 'blue',
         };

@@ -46,13 +46,15 @@
     "react-apexcharts": "^1.4.0",
     "react-dom": "^18.2.0",
     "recoil": "^0.7.6",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@emotion/babel-preset-css-prop": "^11.10.0",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
     "eslint": "^8.34.0",
     "eslint-config-next": "^13.1.6",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "git-branch-is": "^4.0.0",
     "husky": "^8.0.0",
     "lint-staged": "^13.1.0",

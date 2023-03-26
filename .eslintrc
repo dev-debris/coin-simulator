@@ -4,5 +4,9 @@
     "next": {
       "rootDir": "."
     }
+  },
+  "plugins": ["unused-imports"],
+  "rules": {
+    "unused-imports/no-unused-imports-ts": 2
   }
 }
