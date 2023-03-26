@@ -4,9 +4,9 @@ import {getTicker} from '@/http';
 import * as S from './StockListItem.style';
 
 function StockListItem({ticker}: StockListItemProp) {
-  const favoriteState = localStorage.getItem(`${ticker.market}`);
+  const favoriteState = JSON.parse(localStorage.getItem(`${ticker.market}`) ?? 'false');
 
-  const [isFavorite, setIsFavorite] = useState<boolean>(JSON.parse(favoriteState || 'false'));
+  const [isFavorite, setIsFavorite] = useState<boolean>(favoriteState);
 
   const {data} = useQuery([ticker.market], {
     queryFn: () => getTicker({queries: {markets: ticker.market}}),
