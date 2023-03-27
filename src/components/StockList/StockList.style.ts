@@ -4,6 +4,10 @@ export const Wrapper = styled.div`
   flex: 1 1 auto;
 `;
 
+export const FavoriteButton = styled.button`
+  cursor: pointer;
+`;
+
 export const BorderNone = styled.table`
   padding: 0;
   margin: 0;
