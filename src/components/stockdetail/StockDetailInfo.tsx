@@ -28,7 +28,7 @@ const StockDetailInfo = ({
   trade_time_kst,
   trade_timestamp,
   trade_volume,
-}: TickerResponse) => {
+}: Ticker) => {
   return (
     <>
       <DetailTitle>{market}</DetailTitle>

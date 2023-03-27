@@ -1,16 +1,22 @@
 import {useState, useEffect} from 'react';
 import {useRecoilState} from 'recoil';
 import {candleState} from '@/atoms';
+import {MARKET_CODE} from '@/constants';
 import {useDayCandleQuery, useMinuteCandleQuery, useMonthCandleQuery, useWeekCandleQuery} from './queries';
+
+/**
+ * @todo 상태 변경 가능하도록 수정하기
+ */
+const DEFAULT_QUERIES = {count: 20, market: MARKET_CODE['krw-btc']};
 
 const useCandleData = () => {
   const [candleType] = useRecoilState(candleState);
+  const [data, setData] = useState<Candle[]>([]);
 
-  const [data, setData] = useState<CandleResponse[]>([]);
-  const {refetch: refetchMinute} = useMinuteCandleQuery({} as MinuteCandleRequest);
-  const {refetch: refetchDay} = useDayCandleQuery({} as DayCandleRequest);
-  const {refetch: refetchWeek} = useWeekCandleQuery({} as WeekCandleRequest);
-  const {refetch: refetchMonth} = useMonthCandleQuery({} as MonthCandleRequest);
+  const {refetch: refetchMinute} = useMinuteCandleQuery({paths: [15], queries: DEFAULT_QUERIES});
+  const {refetch: refetchDay} = useDayCandleQuery({queries: DEFAULT_QUERIES});
+  const {refetch: refetchWeek} = useWeekCandleQuery({queries: DEFAULT_QUERIES});
+  const {refetch: refetchMonth} = useMonthCandleQuery({queries: DEFAULT_QUERIES});
 
   useEffect(() => {
     const refetchData = () => {
@@ -25,9 +31,8 @@ const useCandleData = () => {
           return refetchMonth();
       }
     };
-    refetchData().then(({data}) => {
-      setData(data);
-    });
+
+    refetchData().then(({data}) => data && setData(data));
   }, [candleType, refetchDay, refetchMinute, refetchMonth, refetchWeek]);
 
   return data;

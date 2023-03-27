@@ -15,11 +15,11 @@ interface PortfolioProp {
 }
 
 interface StockDetailProp {
-  ticker: TickerResponse;
+  ticker: Ticker;
 }
 
 interface StockChartProp {
-  datas: CandleResponse[];
+  datas: Candle[];
 }
 
 interface ApexChartProp {
@@ -48,15 +48,15 @@ interface ApexChartProp {
 }
 
 interface StockListItemProp {
-  ticker: MarketResponse;
+  ticker: Market;
 }
 
 interface StockDetailProp {
-  ticker: TickerResponse;
+  ticker: Ticker;
 }
 
 interface StockChartProp {
-  datas: CandleResponse[];
+  datas: Candle[];
 }
 
 interface ApexChartProp {

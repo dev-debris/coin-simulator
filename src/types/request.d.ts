@@ -1,9 +1,10 @@
-interface AdditionalUriInfo {
+interface ApiRequest {
   paths?: (string | number)[];
-  queries?: IndexdObject;
+  queries?: Record<string, string | number | boolean>;
+  data?: Record<string, any>;
 }
 
-interface CandleRequest extends AdditionalUriInfo {
+interface CandleRequest extends ApiRequest {
   queries: {
     market: string;
     to?: string;
@@ -16,19 +17,25 @@ type MinuteCandleRequest = CandleRequest & {
 };
 
 type DayCandleRequest = CandleRequest & {
-  queries: {convertingPriceUnit?: string};
+  queries: {
+    convertingPriceUnit?: string;
+  };
 };
 
 type WeekCandleRequest = CandleRequest;
 
 type MonthCandleRequest = CandleRequest;
 
-interface TickerRequest extends AdditionalUriInfo {
-  queries: {markets: string};
+interface TickerRequest extends ApiRequest {
+  queries: {
+    markets: string;
+  };
 }
 
-interface MarketRequest extends AddtionalUriInfo {
-  queries: {isDetails: boolean};
+interface MarketRequest extends ApiRequest {
+  queries: {
+    isDetails: boolean;
+  };
 }
 
 type CandleType = 'minute' | 'day' | 'week' | 'month';

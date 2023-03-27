@@ -1,11 +1,11 @@
 import {useQuery} from '@tanstack/react-query';
-import {MARKET_CODE, QUERY_KEYS} from '@/constants/request.const';
+import {QUERY_KEYS} from '@/constants';
 import {getWeeksCandles} from '@/http';
 
-const useWeekCandleQuery = ({queries = {count: 20, market: MARKET_CODE['krw-btc']}}: WeekCandleRequest) => {
-  return useQuery<WeekCandleResponse[]>([QUERY_KEYS.candles, 'week'], {
-    queryFn: () => getWeeksCandles({queries}),
+const useWeekCandleQuery = (request: WeekCandleRequest) => {
+  return useQuery([QUERY_KEYS.candles, 'week'], {
     initialData: [],
+    queryFn: () => getWeeksCandles(request),
   });
 };
 
