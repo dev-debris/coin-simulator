@@ -32,7 +32,7 @@ function StockListItem({ticker}: StockListItemProp) {
 
   const fixedChangeRate = Math.round(data[0].signed_change_rate * 1000) / 1000;
 
-  const arrayRemove = (arr, value) => {
+  const arrayRemove = (arr: any[], value: Market) => {
     return arr.filter(ele => {
       return ele != value;
     });

@@ -46,9 +46,12 @@ function StockList() {
 
   return (
     <S.Wrapper>
-      <S.FavoriteButton onClick={() => setOnFavorite(!onFavorite)}>Click Me!</S.FavoriteButton>
+      <S.FavoriteButton id="toggle" onClick={() => setOnFavorite(!onFavorite)}></S.FavoriteButton>
+      <S.ToggleSwitch onFavorite={onFavorite} htmlFor="toggle">
+        <S.ToggleButton onFavorite={onFavorite} />
+      </S.ToggleSwitch>
       <S.BorderNone>
-        {switchData.slice(page * 10, (page + 1) * 10).map(market => (
+        {switchData.slice(page * 10, (page + 1) * 10).map((market: Market) => (
           <StockListItem ticker={market} key={market.market} />
         ))}
       </S.BorderNone>
