@@ -16,7 +16,7 @@ function StockList() {
 
   const {data} = useQuery([QUERY_KEYS.markets], {
     queryFn: () => getMarkets({queries: {isDetails: false}}),
-    select: data => data.filter((market: {market: string | string[]}) => market.market.includes('KRW')),
+    select: data => data.filter(market => market.market.includes('KRW')),
   });
 
   if (!data) {
@@ -48,7 +48,7 @@ function StockList() {
     <S.Wrapper>
       <S.FavoriteButton onClick={() => setOnFavorite(!onFavorite)}>Click Me!</S.FavoriteButton>
       <S.BorderNone>
-        {switchData.slice(page * 10, (page + 1) * 10).map((market: Market) => (
+        {switchData.slice(page * 10, (page + 1) * 10).map(market => (
           <StockListItem ticker={market} key={market.market} />
         ))}
       </S.BorderNone>
