@@ -9,11 +9,8 @@ export const deleteRequest = requestByMethod('DELETE');
 function requestByMethod(method: 'GET' | 'POST' | 'PUT' | 'DELETE') {
   return <Request extends ApiRequest, Response>(endpoint: string, responseSchema: z.ZodType<Response>) => {
     return async ({paths, queries, data: requestData}: Request) => {
-      if (paths?.length) {
-        endpoint += `/${paths.join('/')}`;
-      }
-
-      const {data} = await axios<Response>(endpoint, {
+      const path = paths?.length ? `/${paths.join('/')}` : '';
+      const {data} = await axios<Response>(endpoint + path, {
         method,
         headers: {accept: 'application/json'},
         ...(queries ? {params: queries} : {}),
