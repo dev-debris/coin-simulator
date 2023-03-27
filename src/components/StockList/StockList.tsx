@@ -1,5 +1,7 @@
 import {useQuery} from '@tanstack/react-query';
 import {useState} from 'react';
+import {useRecoilValue} from 'recoil';
+import {favoriteList} from '@/atoms';
 import {QUERY_KEYS} from '@/constants';
 import {getMarkets} from '@/http';
 import * as S from './StockList.style';
@@ -7,6 +9,10 @@ import StockListItem from './StockListItem';
 
 function StockList() {
   const [page, setPage] = useState<number>(0);
+
+  const [onFavorite, setOnFavorite] = useState<boolean>(false);
+
+  const favorites = useRecoilValue(favoriteList);
 
   const {data} = useQuery([QUERY_KEYS.markets], {
     queryFn: () => getMarkets({queries: {isDetails: false}}),
@@ -36,10 +42,16 @@ function StockList() {
     }
   };
 
+  const switchData = onFavorite ? favorites : data;
+
   return (
     <S.Wrapper>
+      <S.FavoriteButton id="toggle" onClick={() => setOnFavorite(!onFavorite)}></S.FavoriteButton>
+      <S.ToggleSwitch onFavorite={onFavorite} htmlFor="toggle">
+        <S.ToggleButton onFavorite={onFavorite} />
+      </S.ToggleSwitch>
       <S.BorderNone>
-        {data.slice(page * 10, (page + 1) * 10).map(market => (
+        {switchData.slice(page * 10, (page + 1) * 10).map((market: Market) => (
           <StockListItem ticker={market} key={market.market} />
         ))}
       </S.BorderNone>

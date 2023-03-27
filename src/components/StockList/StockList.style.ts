@@ -1,7 +1,41 @@
+import {css} from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
   flex: 1 1 auto;
+`;
+
+export const FavoriteButton = styled.button`
+  display: none;
+`;
+
+export const ToggleSwitch = styled.label<{onFavorite: boolean}>`
+  width: 40px;
+  height: 20px;
+  display: block;
+  position: relative;
+  border-radius: 30px;
+  background-color: ${props => (props.onFavorite ? 'gray' : props.theme.colors.BACKGROUND_MAIN)};
+  box-shadow: 0 0 16px 3px rgba(0 0 0 / 15%);
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+`;
+
+export const ToggleButton = styled.span<{onFavorite: boolean}>`
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: ${props => (props.onFavorite ? props.theme.colors.BACKGROUND_MAIN : 'gray')};
+  ${props =>
+    props.onFavorite &&
+    css`
+      left: calc(100% - 20px);
+    `}
+  transition: all 0.2s ease-in;
 `;
 
 export const BorderNone = styled.table`
