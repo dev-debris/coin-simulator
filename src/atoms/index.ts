@@ -1,21 +1,36 @@
-import {atom} from 'recoil';
-import {recoilPersist} from 'recoil-persist';
+import {atom, AtomEffect} from 'recoil';
 
 const RECOIL_KEY = {
   candle: 'candleState',
 };
-
-const {persistAtom} = recoilPersist({
-  key: 'favoriteList',
-});
 
 export const candleState = atom<CandleType>({
   key: RECOIL_KEY.candle,
   default: 'minute',
 });
 
-export const favoriteList = atom({
+function storageEffect<T = any>(
+  key: string,
+  storage: 'localStorage' | 'sessionStorage' = 'localStorage'
+): AtomEffect<T> {
+  if (typeof window === 'undefined') {
+    return () => {};
+  }
+
+  return ({setSelf, onSet}) => {
+    const savedData = localStorage.getItem('favoriteList');
+    if (savedData) setSelf(JSON.parse(savedData));
+
+    onSet((newValue, _, isReset) => {
+      isReset
+        ? localStorage.removeItem('favoriteList')
+        : localStorage.setItem('favoriteList', JSON.stringify(newValue));
+    });
+  };
+}
+
+export const favoriteList = atom<Market[]>({
   key: 'favoriteList',
   default: [],
-  effects_UNSTABLE: [persistAtom],
+  effects: [storageEffect('favoriteList')],
 });
