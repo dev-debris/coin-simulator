@@ -1,4 +1,5 @@
-import {atom, AtomEffect} from 'recoil';
+import {atom} from 'recoil';
+import {storageEffect} from '@/effects';
 
 const RECOIL_KEY = {
   candle: 'candleState',
@@ -9,28 +10,8 @@ export const candleState = atom<CandleType>({
   default: 'minute',
 });
 
-function storageEffect<T = any>(
-  key: string,
-  storage: 'localStorage' | 'sessionStorage' = 'localStorage'
-): AtomEffect<T> {
-  if (typeof window === 'undefined') {
-    return () => {};
-  }
-
-  return ({setSelf, onSet}) => {
-    const savedData = localStorage.getItem('favoriteList');
-    if (savedData) setSelf(JSON.parse(savedData));
-
-    onSet((newValue, _, isReset) => {
-      isReset
-        ? localStorage.removeItem('favoriteList')
-        : localStorage.setItem('favoriteList', JSON.stringify(newValue));
-    });
-  };
-}
-
-export const favoriteList = atom<Market[]>({
-  key: 'favoriteList',
+export const favoriteListState = atom<Market[]>({
+  key: 'favoriteListState',
   default: [],
-  effects: [storageEffect('favoriteList')],
+  effects: [storageEffect('favoriteListState', 'localStorage')],
 });
