@@ -29,6 +29,10 @@ export const StockName = styled.td`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const StockPrice = styled.td<{fixedChangeRate: number}>`
@@ -37,6 +41,7 @@ export const StockPrice = styled.td<{fixedChangeRate: number}>`
   color: ${props => (props.fixedChangeRate > 0 ? 'red' : props.fixedChangeRate === 0 ? 'black' : 'blue')};
   font-size: 12px;
   white-space: nowrap;
+  cursor: default;
 `;
 
 export const StockChangeRate = styled.td<{fixedChangeRate: number}>`
@@ -45,6 +50,7 @@ export const StockChangeRate = styled.td<{fixedChangeRate: number}>`
   color: ${props => (props.fixedChangeRate > 0 ? 'red' : props.fixedChangeRate === 0 ? 'black' : 'blue')};
   font-size: 12px;
   white-space: nowrap;
+  cursor: default;
 `;
 
 export const StockAccTradePrice = styled.td`
@@ -53,4 +59,5 @@ export const StockAccTradePrice = styled.td`
   color: #333333;
   font-size: 12px;
   white-space: nowrap;
+  cursor: default;
 `;
