@@ -1,16 +1,16 @@
 import styled from '@emotion/styled';
 
-export const StockListBody = styled.tbody`
+export const StockListBody = styled.tbody<{isTarget: boolean}>`
   height: 45px;
   width: 100%;
   vertical-align: middle;
-  background: #f8f9fa;
   &:hover,
   &:hover * {
     background: #f1f1f4;
   }
   border: 1px solid #dee2e6;
   border-collapse: collapse;
+  background: ${props => (props.isTarget ? '#f1f1f4' : '#f8f9fa')};
 `;
 
 export const Favorites = styled.button`
@@ -29,7 +29,6 @@ export const StockName = styled.td`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  background: #f8f9fa;
 `;
 
 export const StockPrice = styled.td<{fixedChangeRate: number}>`
@@ -38,7 +37,6 @@ export const StockPrice = styled.td<{fixedChangeRate: number}>`
   color: ${props => (props.fixedChangeRate > 0 ? 'red' : props.fixedChangeRate === 0 ? 'black' : 'blue')};
   font-size: 12px;
   white-space: nowrap;
-  background: #f8f9fa;
 `;
 
 export const StockChangeRate = styled.td<{fixedChangeRate: number}>`
@@ -47,7 +45,6 @@ export const StockChangeRate = styled.td<{fixedChangeRate: number}>`
   color: ${props => (props.fixedChangeRate > 0 ? 'red' : props.fixedChangeRate === 0 ? 'black' : 'blue')};
   font-size: 12px;
   white-space: nowrap;
-  background: #f8f9fa;
 `;
 
 export const StockAccTradePrice = styled.td`
@@ -56,5 +53,4 @@ export const StockAccTradePrice = styled.td`
   color: #333333;
   font-size: 12px;
   white-space: nowrap;
-  background: #f8f9fa;
 `;

@@ -15,3 +15,8 @@ export const favoriteListState = atom<Market[]>({
   default: [],
   effects: [storageEffect('favoriteListState', 'localStorage')],
 });
+
+export const targetState = atom<Market[]>({
+  key: 'targetState',
+  default: [],
+});
