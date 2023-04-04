@@ -15,7 +15,8 @@ export const ToggleSwitch = styled.label<{isFavorite: boolean}>`
   display: block;
   position: relative;
   border-radius: 30px;
-  background-color: ${props => (props.isFavorite ? 'gray' : props.theme.colors.BACKGROUND_MAIN)};
+  background-color: ${props =>
+    props.isFavorite ? props.theme.colors.BACKGROUND_SUB : props.theme.colors.BACKGROUND_MAIN};
   box-shadow: 0 0 16px 3px rgba(0 0 0 / 15%);
   cursor: pointer;
   transition: all 0.2s ease-in;
@@ -29,7 +30,7 @@ export const ToggleButton = styled.span<{isFavorite: boolean}>`
   left: 4px;
   transform: translateY(-50%);
   border-radius: 50%;
-  background: ${props => (props.isFavorite ? props.theme.colors.BACKGROUND_MAIN : 'gray')};
+  background: ${props => (props.isFavorite ? props.theme.colors.BACKGROUND_MAIN : props.theme.colors.BACKGROUND_SUB)};
   ${props =>
     props.isFavorite &&
     css`
@@ -60,7 +61,8 @@ export const PrevButton = styled.button<{page: number; firstPage: number}>`
   margin: 0;
   border: 0;
   background-color: rgba(0, 0, 0, 0);
-  color: ${props => (props.page === props.firstPage ? 'gray' : 'black')};
+  color: ${props =>
+    props.page === props.firstPage ? props.theme.colors.BACKGROUND_SUB : props.theme.colors.FONT_MAIN};
   cursor: ${props => (props.page === props.firstPage ? 'default' : 'pointer')};
 `;
 
@@ -69,6 +71,6 @@ export const NextButton = styled.button<{page: number; lastPage: number}>`
   margin: 0;
   border: 0;
   background-color: rgba(0, 0, 0, 0);
-  color: ${props => (props.page === props.lastPage ? 'gray' : 'black')};
+  color: ${props => (props.page === props.lastPage ? props.theme.colors.BACKGROUND_SUB : props.theme.colors.FONT_MAIN)};
   cursor: ${props => (props.page === props.lastPage ? 'default' : 'pointer')};
 `;

@@ -1,7 +1,7 @@
 import {useQuery} from '@tanstack/react-query';
 import {useState} from 'react';
 import {useRecoilState} from 'recoil';
-import {favoriteListState, targetState} from '@/atoms';
+import {favoriteCoinListState, selectedCoinState} from '@/atoms';
 import {getTicker} from '@/http';
 import * as S from './StockListItem.style';
 
@@ -10,11 +10,11 @@ function StockListItem({ticker}: StockListItemProp) {
 
   const [isFavorite, setIsFavorite] = useState<boolean>(favoriteState);
 
-  const [favorites, setFavorites] = useRecoilState(favoriteListState);
+  const [favorites, setFavorites] = useRecoilState(favoriteCoinListState);
 
-  const [target, setTarget] = useRecoilState(targetState);
+  const [selectedCoin, setSelectedCoin] = useRecoilState(selectedCoinState);
 
-  const isTarget = target[0] === ticker ? true : false;
+  const isSelected = selectedCoin[0] === ticker ? true : false;
 
   const {data} = useQuery([ticker.market], {
     queryFn: () => getTicker({queries: {markets: ticker.market}}),
@@ -60,12 +60,12 @@ function StockListItem({ticker}: StockListItemProp) {
   }
 
   function onClick() {
-    const newTarget = [ticker];
-    setTarget(newTarget);
+    const newSelectedCoin = [ticker];
+    setSelectedCoin(newSelectedCoin);
   }
 
   return (
-    <S.StockListBody onClick={onClick} isTarget={isTarget}>
+    <S.StockListBody onClick={onClick} isSelected={isSelected}>
       <tr>
         <td rowSpan={2}>
           <S.Favorites onClick={toggleFavorite}>{isFavorite ? '★' : '☆'}</S.Favorites>

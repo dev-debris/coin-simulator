@@ -1,7 +1,7 @@
 import {useQuery} from '@tanstack/react-query';
 import {useState} from 'react';
 import {useRecoilValue} from 'recoil';
-import {favoriteListState} from '@/atoms';
+import {favoriteCoinListState} from '@/atoms';
 import {QUERY_KEYS} from '@/constants';
 import {getMarkets} from '@/http';
 import * as S from './StockList.style';
@@ -12,7 +12,7 @@ function StockList() {
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
-  const favorites = useRecoilValue(favoriteListState);
+  const favorites = useRecoilValue(favoriteCoinListState);
 
   const {data: allCoinList} = useQuery([QUERY_KEYS.markets], {
     queryFn: () => getMarkets({queries: {isDetails: false}}),

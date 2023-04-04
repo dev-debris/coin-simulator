@@ -10,13 +10,13 @@ export const candleState = atom<CandleType>({
   default: 'minute',
 });
 
-export const favoriteListState = atom<Market[]>({
-  key: 'favoriteListState',
+export const favoriteCoinListState = atom<Market[]>({
+  key: 'favoriteCoinListState',
   default: [],
-  effects: [storageEffect('favoriteListState', 'localStorage')],
+  effects: [storageEffect('favoriteCoinListState', 'localStorage')],
 });
 
-export const targetState = atom<Market[]>({
-  key: 'targetState',
+export const selectedCoinState = atom<Market[]>({
+  key: 'selectedCoinState',
   default: [],
 });
