@@ -1,12 +1,17 @@
 import {useQuery} from '@tanstack/react-query';
-import {useState} from 'react';
+import {useRecoilState} from 'recoil';
+import {favoriteCoinListState, selectedCoinState} from '@/atoms';
 import {getTicker} from '@/http';
 import * as S from './StockListItem.style';
 
 function StockListItem({ticker}: StockListItemProp) {
-  const favoriteState = JSON.parse(localStorage.getItem(`${ticker.market}`) ?? 'false');
+  const [favorites, setFavorites] = useRecoilState(favoriteCoinListState);
 
-  const [isFavorite, setIsFavorite] = useState<boolean>(favoriteState);
+  const [selectedCoin, setSelectedCoin] = useRecoilState(selectedCoinState);
+
+  const isSelected = selectedCoin[0] === ticker ? true : false;
+
+  const isFavorite = favorites.includes(ticker);
 
   const {data} = useQuery([ticker.market], {
     queryFn: () => getTicker({queries: {markets: ticker.market}}),
@@ -25,17 +30,33 @@ function StockListItem({ticker}: StockListItemProp) {
   }
 
   const fixedAccTradePrice = Math.floor(data[0].acc_trade_price_24h / 1000000);
+
   const fixedChangeRate = Math.round(data[0].signed_change_rate * 1000) / 1000;
 
-  function toggleFavorite() {
-    setIsFavorite(prev => {
-      localStorage.setItem(ticker.market, (!prev).toString());
-      return !prev;
+  const arrayRemove = (arr: any[], value: Market) => {
+    return arr.filter(ele => {
+      return ele != value;
     });
+  };
+
+  function toggleFavorite() {
+    if (isFavorite) {
+      const newFavorites = [...favorites];
+      setFavorites(arrayRemove(newFavorites, ticker));
+    } else {
+      const newFavorites = [...favorites];
+      newFavorites.push(ticker);
+      setFavorites(newFavorites);
+    }
+  }
+
+  function onClick() {
+    const newSelectedCoin = [ticker];
+    setSelectedCoin(newSelectedCoin);
   }
 
   return (
-    <S.StockListBody>
+    <S.StockListBody onClick={onClick} isSelected={isSelected}>
       <tr>
         <td rowSpan={2}>
           <S.Favorites onClick={toggleFavorite}>{isFavorite ? '★' : '☆'}</S.Favorites>
