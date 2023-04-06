@@ -1,8 +1,33 @@
-import {css} from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
   flex: 1 1 auto;
+`;
+
+export const TopBar = styled.span`
+  display: flex;
+  height: 42px;
+  border-bottom: 1px solid ${props => props.theme.colors.BORDER};
+`;
+
+export const SearchBar = styled.form`
+  width: 243px;
+  height: 42px;
+`;
+
+export const Search = styled.input`
+  width: 200px;
+  height: 39px;
+  border: none;
+`;
+
+export const SearchButton = styled.button`
+  width: 42px;
+  height: 41px;
+  border: none;
+  background-color: ${props => props.theme.colors.BACKGROUND_MAIN};
+  border-right: 1px solid ${props => props.theme.colors.BORDER};
+  cursor: pointer;
 `;
 
 export const FavoriteButton = styled.button`
@@ -10,32 +35,28 @@ export const FavoriteButton = styled.button`
 `;
 
 export const ToggleSwitch = styled.label<{isFavorite: boolean}>`
-  width: 40px;
-  height: 20px;
+  width: 46px;
+  height: 41px;
   display: block;
   position: relative;
-  border-radius: 30px;
   background-color: ${props =>
     props.isFavorite ? props.theme.colors.BACKGROUND_SUB : props.theme.colors.BACKGROUND_MAIN};
-  box-shadow: 0 0 16px 3px rgba(0 0 0 / 15%);
   cursor: pointer;
+  &:hover {
+    background-color: #f1f1f4;
+  }
   transition: all 0.2s ease-in;
 `;
 
 export const ToggleButton = styled.span<{isFavorite: boolean}>`
-  width: 15px;
-  height: 15px;
+  width: 30px;
+  height: 30px;
   position: absolute;
   top: 50%;
-  left: 4px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: ${props => (props.isFavorite ? props.theme.colors.BACKGROUND_MAIN : props.theme.colors.BACKGROUND_SUB)};
-  ${props =>
-    props.isFavorite &&
-    css`
-      left: calc(100% - 20px);
-    `}
+  transform: translateX(36%) translateY(-70%);
+  background-color: rgba(0, 0, 0, 0);
+  color: ${props => (props.isFavorite ? 'gold' : props.theme.colors.FONT_SUB_BOLD)};
+  font-size: x-large;
   transition: all 0.2s ease-in;
 `;
 

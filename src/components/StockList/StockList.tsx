@@ -44,16 +44,22 @@ function StockList() {
 
   return (
     <S.Wrapper>
-      <S.FavoriteButton
-        id="toggle"
-        onClick={() => {
-          setIsFavorite(!isFavorite);
-          setPage(0);
-        }}
-      ></S.FavoriteButton>
-      <S.ToggleSwitch isFavorite={isFavorite} htmlFor="toggle">
-        <S.ToggleButton isFavorite={isFavorite} />
-      </S.ToggleSwitch>
+      <S.TopBar>
+        <S.SearchBar>
+          <S.Search type="text" placeholder="코인명/심볼검색" />
+          <S.SearchButton type="submit">검색</S.SearchButton>
+        </S.SearchBar>
+        <S.FavoriteButton
+          id="toggle"
+          onClick={() => {
+            setIsFavorite(!isFavorite);
+            setPage(0);
+          }}
+        ></S.FavoriteButton>
+        <S.ToggleSwitch isFavorite={isFavorite} htmlFor="toggle">
+          <S.ToggleButton isFavorite={isFavorite}>★</S.ToggleButton>
+        </S.ToggleSwitch>
+      </S.TopBar>
       <S.BorderNone>
         {(isFavorite ? favorites : allCoinList).slice(page * 10, (page + 1) * 10).map((market: Market) => (
           <StockListItem ticker={market} key={market.market} />
