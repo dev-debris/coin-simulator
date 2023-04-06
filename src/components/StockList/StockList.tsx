@@ -24,7 +24,7 @@ function StockList() {
   }
 
   const firstPage = 0;
-  const lastPage = Math.floor(allCoinList.length / 10);
+  const lastPage = !isFavorite ? Math.floor(allCoinList.length / 10) : Math.floor(favorites.length / 10);
 
   const prevPage = () => {
     if (page === firstPage) {
@@ -44,7 +44,13 @@ function StockList() {
 
   return (
     <S.Wrapper>
-      <S.FavoriteButton id="toggle" onClick={() => setIsFavorite(!isFavorite)}></S.FavoriteButton>
+      <S.FavoriteButton
+        id="toggle"
+        onClick={() => {
+          setIsFavorite(!isFavorite);
+          setPage(0);
+        }}
+      ></S.FavoriteButton>
       <S.ToggleSwitch isFavorite={isFavorite} htmlFor="toggle">
         <S.ToggleButton isFavorite={isFavorite} />
       </S.ToggleSwitch>
