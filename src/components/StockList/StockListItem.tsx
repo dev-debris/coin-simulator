@@ -1,20 +1,17 @@
 import {useQuery} from '@tanstack/react-query';
-import {useState} from 'react';
 import {useRecoilState} from 'recoil';
 import {favoriteCoinListState, selectedCoinState} from '@/atoms';
 import {getTicker} from '@/http';
 import * as S from './StockListItem.style';
 
 function StockListItem({ticker}: StockListItemProp) {
-  const favoriteState = JSON.parse(localStorage.getItem(`${ticker.market}`) ?? 'false');
-
-  const [isFavorite, setIsFavorite] = useState<boolean>(favoriteState);
-
   const [favorites, setFavorites] = useRecoilState(favoriteCoinListState);
 
   const [selectedCoin, setSelectedCoin] = useRecoilState(selectedCoinState);
 
   const isSelected = selectedCoin[0] === ticker ? true : false;
+
+  const isFavorite = favorites.includes(ticker);
 
   const {data} = useQuery([ticker.market], {
     queryFn: () => getTicker({queries: {markets: ticker.market}}),
@@ -43,20 +40,14 @@ function StockListItem({ticker}: StockListItemProp) {
   };
 
   function toggleFavorite() {
-    setIsFavorite(prev => {
-      if (prev) {
-        const newFavorites = [...favorites];
-        setFavorites(arrayRemove(newFavorites, ticker));
-        localStorage.setItem(ticker.market, (!prev).toString());
-        return !prev;
-      } else {
-        const newFavorites = [...favorites];
-        newFavorites.push(ticker);
-        setFavorites(newFavorites);
-        localStorage.setItem(ticker.market, (!prev).toString());
-        return !prev;
-      }
-    });
+    if (isFavorite) {
+      const newFavorites = [...favorites];
+      setFavorites(arrayRemove(newFavorites, ticker));
+    } else {
+      const newFavorites = [...favorites];
+      newFavorites.push(ticker);
+      setFavorites(newFavorites);
+    }
   }
 
   function onClick() {

@@ -3,6 +3,8 @@ import {storageEffect} from '@/effects';
 
 const RECOIL_KEY = {
   candle: 'candleState',
+  favoriteCoinList: 'favoriteCoinListState',
+  selectedCoin: 'selectedCoinState',
 };
 
 export const candleState = atom<CandleType>({
@@ -11,12 +13,12 @@ export const candleState = atom<CandleType>({
 });
 
 export const favoriteCoinListState = atom<Market[]>({
-  key: 'favoriteCoinListState',
+  key: RECOIL_KEY.favoriteCoinList,
   default: [],
-  effects: [storageEffect('favoriteCoinListState', 'localStorage')],
+  effects: [storageEffect(RECOIL_KEY.favoriteCoinList, 'localStorage')],
 });
 
 export const selectedCoinState = atom<Market[]>({
-  key: 'selectedCoinState',
+  key: RECOIL_KEY.selectedCoin,
   default: [],
 });
