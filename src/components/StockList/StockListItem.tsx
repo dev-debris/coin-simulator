@@ -11,7 +11,9 @@ function StockListItem({ticker}: StockListItemProp) {
 
   const isSelected = selectedCoin[0] === ticker ? true : false;
 
-  const isFavorite = favorites.includes(ticker);
+  const favoriteMarkets = favorites.map(x => x.market);
+
+  const isFavorite = favoriteMarkets.includes(ticker.market);
 
   const {data} = useQuery([ticker.market], {
     queryFn: () => getTicker({queries: {markets: ticker.market}}),
