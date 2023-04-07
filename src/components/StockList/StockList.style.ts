@@ -7,22 +7,23 @@ export const Wrapper = styled.div`
 export const TopBar = styled.span`
   display: flex;
   height: 42px;
+  width: 100%;
   border-bottom: 1px solid ${props => props.theme.colors.BORDER};
 `;
 
 export const SearchBar = styled.form`
-  width: 243px;
+  width: 80%;
   height: 42px;
 `;
 
 export const Search = styled.input`
-  width: 200px;
+  width: 75%;
   height: 39px;
   border: none;
 `;
 
 export const SearchButton = styled.button`
-  width: 42px;
+  width: 25%;
   height: 41px;
   border: none;
   background-color: ${props => props.theme.colors.BACKGROUND_MAIN};
@@ -35,9 +36,9 @@ export const FavoriteButton = styled.button`
 `;
 
 export const ToggleSwitch = styled.label<{isFavorite: boolean}>`
-  width: 46px;
+  width: 20%;
   height: 41px;
-  display: block;
+  display: flex;
   position: relative;
   background-color: ${props =>
     props.isFavorite ? props.theme.colors.BACKGROUND_SUB : props.theme.colors.BACKGROUND_MAIN};
@@ -49,11 +50,11 @@ export const ToggleSwitch = styled.label<{isFavorite: boolean}>`
 `;
 
 export const ToggleButton = styled.span<{isFavorite: boolean}>`
-  width: 30px;
-  height: 30px;
+  display: flex;
   position: absolute;
+  left: 50%;
   top: 50%;
-  transform: translateX(36%) translateY(-70%);
+  transform: translateX(-50%) translateY(-50%);
   background-color: rgba(0, 0, 0, 0);
   color: ${props => (props.isFavorite ? 'gold' : props.theme.colors.FONT_SUB_BOLD)};
   font-size: x-large;
