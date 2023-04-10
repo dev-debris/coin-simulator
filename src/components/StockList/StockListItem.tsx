@@ -1,6 +1,6 @@
 import {useQuery} from '@tanstack/react-query';
-import {useRecoilState} from 'recoil';
-import {favoriteCoinListState, selectedCoinState} from '@/atoms';
+import {useRecoilState, useRecoilValue} from 'recoil';
+import {favoriteCoinListState, isFavoriteMarketState, selectedCoinState} from '@/atoms';
 import {getTicker} from '@/http';
 import * as S from './StockListItem.style';
 
@@ -9,11 +9,9 @@ function StockListItem({ticker}: StockListItemProp) {
 
   const [selectedCoin, setSelectedCoin] = useRecoilState(selectedCoinState);
 
+  const isFavorite = useRecoilValue(isFavoriteMarketState(ticker.market));
+
   const isSelected = selectedCoin[0] === ticker ? true : false;
-
-  const favoriteMarkets = favorites.map(x => x.market);
-
-  const isFavorite = favoriteMarkets.includes(ticker.market);
 
   const {data} = useQuery([ticker.market], {
     queryFn: () => getTicker({queries: {markets: ticker.market}}),
