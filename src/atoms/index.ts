@@ -4,7 +4,11 @@ import {storageEffect} from '@/effects';
 const RECOIL_KEY = {
   candle: 'candleState',
   favoriteCoinList: 'favoriteCoinListState',
+  favoriteMarkets: 'favoriteMarketsState',
+  isFavoriteMarket: 'isFavoriteMarketState',
   selectedCoin: 'selectedCoinState',
+  selectedMarket: 'selectedMarket',
+  isSelectedCoin: 'isSelectedCoinState',
 };
 
 export const candleState = atom<CandleType>({
@@ -19,14 +23,14 @@ export const favoriteCoinListState = atom<Market[]>({
 });
 
 export const favoriteMarketsState = selector({
-  key: 'favoriteMarketsState',
+  key: RECOIL_KEY.favoriteMarkets,
   get: ({get}) => {
     return get(favoriteCoinListState).map(x => x.market);
   },
 });
 
 export const isFavoriteMarketState = selectorFamily<boolean, string>({
-  key: 'isFavoriteMarketState',
+  key: RECOIL_KEY.isFavoriteMarket,
   get:
     market =>
     ({get}) => {
@@ -37,4 +41,20 @@ export const isFavoriteMarketState = selectorFamily<boolean, string>({
 export const selectedCoinState = atom<Market[]>({
   key: RECOIL_KEY.selectedCoin,
   default: [],
+});
+
+export const selectedMarketState = selector({
+  key: RECOIL_KEY.selectedMarket,
+  get: ({get}) => {
+    return get(selectedCoinState).map(x => x.market);
+  },
+});
+
+export const isSelectedCoinState = selectorFamily<boolean, string>({
+  key: RECOIL_KEY.isSelectedCoin,
+  get:
+    market =>
+    ({get}) => {
+      return get(selectedMarketState)[0] === market;
+    },
 });
