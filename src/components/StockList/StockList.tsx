@@ -1,5 +1,5 @@
 import {useQuery} from '@tanstack/react-query';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import {favoriteCoinListState} from '@/atoms';
 import {QUERY_KEYS} from '@/constants';
@@ -17,6 +17,10 @@ function StockList() {
   const [keyword, setKeyword] = useState<string>('');
 
   const [keyItems, setKeyItems] = useState<Market[]>([]);
+
+  const [index, setIndex] = useState<number>(-1);
+
+  const autoRef = useRef<HTMLUListElement>(null);
 
   const favorites = useRecoilValue(favoriteCoinListState);
 
@@ -87,9 +91,10 @@ function StockList() {
         </S.SearchBar>
         {keyItems.length > 0 && keyword && (
           <S.AutoSearchContainer>
-            <S.AutoSearchWrap>
+            <S.AutoSearchWrap ref={autoRef}>
               {keyItems.map((search, idx) => (
                 <S.AutoSearchData
+                  isFocus={index === idx ? true : false}
                   key={search.korean_name}
                   onClick={() => {
                     setKeyword(search.korean_name);
