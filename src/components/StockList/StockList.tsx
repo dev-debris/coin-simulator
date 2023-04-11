@@ -82,7 +82,7 @@ function StockList() {
       }
     } else {
       if (e.key === 'Enter') {
-        setCurrentPosts(keyItems);
+        setCurrentPosts([{market: 'none', korean_name: 'none', english_name: 'none'}]);
         setKeyword('');
         setIndex(-1);
       }
@@ -157,13 +157,17 @@ function StockList() {
           <S.ToggleButton isFavorite={isFavorite}>★</S.ToggleButton>
         </S.ToggleSwitch>
       </S.TopBar>
-      <S.BorderNone>
-        {(currentPosts.length == 0 ? allCoinList : currentPosts)
-          .slice(page * 10, (page + 1) * 10)
-          .map((market: Market) => (
-            <StockListItem ticker={market} key={market.market} />
-          ))}
-      </S.BorderNone>
+      {currentPosts[0]?.market === 'none' ? (
+        <div>검색 결과가 존재하지 않습니다.</div>
+      ) : (
+        <S.BorderNone>
+          {(currentPosts.length == 0 ? allCoinList : currentPosts)
+            .slice(page * 10, (page + 1) * 10)
+            .map((market: Market) => (
+              <StockListItem ticker={market} key={market.market} />
+            ))}
+        </S.BorderNone>
+      )}
       <S.Buttons>
         <S.PrevButton page={page} firstPage={firstPage} onClick={prevPage}>
           Prev
