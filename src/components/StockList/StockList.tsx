@@ -63,6 +63,32 @@ function StockList() {
     setKeyword(e.currentTarget.value);
   };
 
+  const handleKeyArrow = (e: React.KeyboardEvent) => {
+    if (keyItems.length > 0) {
+      switch (e.key) {
+        case 'ArrowDown':
+          setIndex(index + 1);
+          if (autoRef.current?.childElementCount === index + 1) setIndex(0);
+          break;
+        case 'ArrowUp':
+          setIndex(index - 1);
+          if (index < 0) {
+            setKeyItems([]);
+            setIndex(-1);
+          }
+          break;
+        case 'Escape':
+          setKeyItems([]);
+          setIndex(-1);
+          break;
+        case 'Enter':
+          setKeyword(keyItems[index]?.korean_name);
+          setIndex(-1);
+          break;
+      }
+    }
+  };
+
   const firstPage = 0;
   const lastPage = !isFavorite ? Math.floor(allCoinList.length / 10) : Math.floor(favorites.length / 10);
 
@@ -86,7 +112,13 @@ function StockList() {
     <S.Wrapper>
       <S.TopBar>
         <S.SearchBar onSubmit={e => onSearch(e)}>
-          <S.Search type="search" placeholder="코인명/심볼검색" value={keyword || ''} onChange={onChangeData} />
+          <S.Search
+            type="search"
+            placeholder="코인명/심볼검색"
+            value={keyword || ''}
+            onChange={onChangeData}
+            onKeyDown={handleKeyArrow}
+          />
           <S.SearchButton type="submit">검색</S.SearchButton>
         </S.SearchBar>
         {keyItems.length > 0 && keyword && (
