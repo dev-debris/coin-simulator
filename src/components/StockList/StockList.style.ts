@@ -19,16 +19,63 @@ export const SearchBar = styled.form`
 export const Search = styled.input`
   width: 75%;
   height: 39px;
+  ::placeholder {
+    color: ${props => props.theme.colors.FONT_SUB};
+  }
+  ::-webkit-search-cancel-button {
+    cursor: pointer;
+  }
+  color: ${props => props.theme.colors.FONT_MAIN};
   border: none;
+  border-right: 1px solid ${props => props.theme.colors.BORDER};
 `;
 
 export const SearchButton = styled.button`
   width: 25%;
   height: 41px;
   border: none;
+  color: ${props => props.theme.colors.FONT_MAIN};
   background-color: ${props => props.theme.colors.BACKGROUND_MAIN};
   border-right: 1px solid ${props => props.theme.colors.BORDER};
   cursor: pointer;
+`;
+
+export const AutoSearchContainer = styled.div`
+  z-index: 3;
+  height: 50vh;
+  width: 400px;
+  background-color: ${props => props.theme.colors.BACKGROUND_MAIN};
+  position: absolute;
+  top: 40px;
+  border: 2px solid;
+  padding: 15px;
+`;
+
+export const AutoSearchWrap = styled.ul`
+  list-style: none;
+`;
+
+export const AutoSearchData = styled.li<{isFocus?: boolean}>`
+  padding: 10px 8px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  z-index: 4;
+  letter-spacing: 2px;
+  &:hover {
+    background-color: ${props => props.theme.colors.BACKGROUND_SUB};
+    cursor: pointer;
+  }
+  background-color: ${props =>
+    props.isFocus ? props.theme.colors.BACKGROUND_SUB : props.theme.colors.BACKGROUND_MAIN};
+  position: relative;
+  div {
+    position: absolute;
+    right: 5px;
+    width: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 `;
 
 export const FavoriteButton = styled.button`
