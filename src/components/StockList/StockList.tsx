@@ -80,6 +80,12 @@ function StockList() {
           setIndex(-1);
           break;
       }
+    } else {
+      if (e.key === 'Enter') {
+        setCurrentPosts(keyItems);
+        setKeyword('');
+        setIndex(-1);
+      }
     }
   };
 
