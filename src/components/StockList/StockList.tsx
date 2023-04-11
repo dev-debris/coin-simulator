@@ -12,13 +12,13 @@ function StockList() {
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
-  const [isSearched, setIsSearched] = useState<boolean>(false);
-
   const [keyword, setKeyword] = useState<string>('');
 
   const [keyItems, setKeyItems] = useState<Market[]>([]);
 
   const [index, setIndex] = useState<number>(-1);
+
+  const [currentPosts, setCurrentPosts] = useState<Market[]>([]);
 
   const autoRef = useRef<HTMLUListElement>(null);
 
@@ -50,10 +50,10 @@ function StockList() {
   const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (keyword === null || keyword === '') {
-      setIsSearched(false);
+      setCurrentPosts([]);
       setPage(0);
     } else {
-      setIsSearched(true);
+      setCurrentPosts(keyItems);
       setPage(0);
     }
   };
@@ -143,6 +143,11 @@ function StockList() {
           id="toggle"
           onClick={() => {
             setIsFavorite(!isFavorite);
+            if (!isFavorite) {
+              setCurrentPosts(favorites);
+            } else {
+              setCurrentPosts([]);
+            }
             setPage(0);
           }}
         ></S.FavoriteButton>
@@ -151,7 +156,7 @@ function StockList() {
         </S.ToggleSwitch>
       </S.TopBar>
       <S.BorderNone>
-        {(isFavorite ? favorites : !isFavorite && isSearched ? keyItems : allCoinList)
+        {(currentPosts.length == 0 ? allCoinList : currentPosts)
           .slice(page * 10, (page + 1) * 10)
           .map((market: Market) => (
             <StockListItem ticker={market} key={market.market} />
