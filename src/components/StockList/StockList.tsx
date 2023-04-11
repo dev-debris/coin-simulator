@@ -71,8 +71,11 @@ function StockList() {
           setIndex(-1);
           break;
         case 'Enter':
-          setKeyword(keyItems[index]?.korean_name);
-          setCurrentPosts(keyItems);
+          if (keyItems[index]) {
+            setCurrentPosts(allCoinList.filter(list => list.korean_name === keyItems[index].korean_name));
+          } else {
+            setCurrentPosts(keyItems);
+          }
           setKeyword('');
           setIndex(-1);
           break;
