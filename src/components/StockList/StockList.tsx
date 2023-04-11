@@ -90,7 +90,9 @@ function StockList() {
   };
 
   const firstPage = 0;
-  const lastPage = Math.floor(allCoinList.length / 10);
+
+  const lastPage =
+    currentPosts.length == 0 ? Math.floor(allCoinList.length / 10) : Math.floor(currentPosts.length / 10);
 
   const prevPage = () => {
     if (page === firstPage) {
