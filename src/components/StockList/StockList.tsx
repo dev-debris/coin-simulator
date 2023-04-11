@@ -43,19 +43,8 @@ function StockList() {
   }
 
   const updateData = () => {
-    let newKeyItems = allCoinList.filter(list => list.korean_name.includes(keyword) === true);
+    let newKeyItems = allCoinList.filter(list => list.korean_name.includes(keyword.replace(/[\s]/g, '')) === true);
     setKeyItems(newKeyItems);
-  };
-
-  const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (keyword === null || keyword === '') {
-      setCurrentPosts([]);
-      setPage(0);
-    } else {
-      setCurrentPosts(keyItems);
-      setPage(0);
-    }
   };
 
   const onChangeData = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +72,8 @@ function StockList() {
           break;
         case 'Enter':
           setKeyword(keyItems[index]?.korean_name);
+          setCurrentPosts(keyItems);
+          setKeyword('');
           setIndex(-1);
           break;
       }
@@ -113,7 +104,7 @@ function StockList() {
   return (
     <S.Wrapper>
       <S.TopBar>
-        <S.SearchBar onSubmit={e => onSearch(e)}>
+        <S.SearchBar>
           <S.Search
             type="search"
             placeholder="코인명/심볼검색"
@@ -121,7 +112,7 @@ function StockList() {
             onChange={onChangeData}
             onKeyDown={handleKeyArrow}
           />
-          <S.SearchButton type="submit">검색</S.SearchButton>
+          <S.SearchButton>검색</S.SearchButton>
         </S.SearchBar>
         {keyItems.length > 0 && keyword && (
           <S.AutoSearchContainer>

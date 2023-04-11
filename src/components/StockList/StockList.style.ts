@@ -11,7 +11,7 @@ export const TopBar = styled.span`
   border-bottom: 1px solid ${props => props.theme.colors.BORDER};
 `;
 
-export const SearchBar = styled.form`
+export const SearchBar = styled.div`
   width: 80%;
   height: 42px;
 `;
