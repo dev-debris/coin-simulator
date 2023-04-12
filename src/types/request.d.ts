@@ -38,4 +38,4 @@ interface MarketRequest extends ApiRequest {
   };
 }
 
-type CandleType = 'minute' | 'day' | 'week' | 'month';
+type CandleType = 'minutes' | 'days' | 'weeks' | 'months';
