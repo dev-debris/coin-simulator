@@ -4,8 +4,8 @@ import {getDaysCandles} from '@/http';
 
 const useDayCandleQuery = (request: DayCandleRequest) => {
   return useQuery([QUERY_KEYS.candles, 'day'], {
-    initialData: [],
-    queryFn: () => getDaysCandles(request),
+    queryFn: async () => await getDaysCandles(request),
+    staleTime: 1000 * 60 * 60 * 24,
   });
 };
 
