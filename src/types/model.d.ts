@@ -46,3 +46,5 @@ interface Market {
   english_name: string;
   market_warning?: string;
 }
+
+type Coin = Ticker & Market;
