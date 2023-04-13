@@ -10,7 +10,7 @@ import StockListItem from './StockListItem';
 function StockList() {
   const [page, setPage] = useState<number>(0);
 
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [isFavoriteList, setIsFavoriteList] = useState<boolean>(false);
 
   const favorites = useRecoilValue(favoriteCoinListState);
 
@@ -24,7 +24,7 @@ function StockList() {
   }
 
   const firstPage = 0;
-  const lastPage = !isFavorite ? Math.floor(allCoinList.length / 10) : Math.floor(favorites.length / 10);
+  const lastPage = !isFavoriteList ? Math.floor(allCoinList.length / 10) : Math.floor(favorites.length / 10);
 
   const prevPage = () => {
     if (page === firstPage) {
@@ -52,16 +52,16 @@ function StockList() {
         <S.FavoriteButton
           id="toggle"
           onClick={() => {
-            setIsFavorite(!isFavorite);
+            setIsFavoriteList(!isFavoriteList);
             setPage(0);
           }}
         ></S.FavoriteButton>
-        <S.ToggleSwitch isFavorite={isFavorite} htmlFor="toggle">
-          <S.ToggleButton isFavorite={isFavorite}>★</S.ToggleButton>
+        <S.ToggleSwitch isFavoriteList={isFavoriteList} htmlFor="toggle">
+          <S.ToggleButton isFavoriteList={isFavoriteList}>★</S.ToggleButton>
         </S.ToggleSwitch>
       </S.TopBar>
       <S.BorderNone>
-        {(isFavorite ? favorites : allCoinList).slice(page * 10, (page + 1) * 10).map((market: Market) => (
+        {(isFavoriteList ? favorites : allCoinList).slice(page * 10, (page + 1) * 10).map((market: Market) => (
           <StockListItem ticker={market} key={market.market} />
         ))}
       </S.BorderNone>

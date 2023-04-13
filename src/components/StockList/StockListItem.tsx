@@ -51,7 +51,7 @@ function StockListItem({ticker}: StockListItemProp) {
   }
 
   function onClick() {
-    const newSelectedCoin = [ticker];
+    const newSelectedCoin = ticker;
     setSelectedCoin(newSelectedCoin);
   }
 

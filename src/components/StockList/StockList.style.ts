@@ -82,13 +82,13 @@ export const FavoriteButton = styled.button`
   display: none;
 `;
 
-export const ToggleSwitch = styled.label<{isFavorite: boolean}>`
+export const ToggleSwitch = styled.label<{isFavoriteList: boolean}>`
   width: 20%;
   height: 41px;
   display: flex;
   position: relative;
   background-color: ${props =>
-    props.isFavorite ? props.theme.colors.BACKGROUND_SUB : props.theme.colors.BACKGROUND_MAIN};
+    props.isFavoriteList ? props.theme.colors.BACKGROUND_SUB : props.theme.colors.BACKGROUND_MAIN};
   cursor: pointer;
   &:hover {
     background-color: #f1f1f4;
@@ -96,14 +96,14 @@ export const ToggleSwitch = styled.label<{isFavorite: boolean}>`
   transition: all 0.2s ease-in;
 `;
 
-export const ToggleButton = styled.span<{isFavorite: boolean}>`
+export const ToggleButton = styled.span<{isFavoriteList: boolean}>`
   display: flex;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
   background-color: rgba(0, 0, 0, 0);
-  color: ${props => (props.isFavorite ? 'gold' : props.theme.colors.FONT_SUB_BOLD)};
+  color: ${props => (props.isFavoriteList ? 'gold' : props.theme.colors.FONT_SUB_BOLD)};
   font-size: x-large;
   transition: all 0.2s ease-in;
 `;
