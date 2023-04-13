@@ -4,8 +4,8 @@ import {getWeeksCandles} from '@/http';
 
 const useWeekCandleQuery = (request: WeekCandleRequest) => {
   return useQuery([QUERY_KEYS.candles, 'week'], {
-    initialData: [],
-    queryFn: () => getWeeksCandles(request),
+    queryFn: async () => await getWeeksCandles(request),
+    staleTime: 1000 * 60 * 60 * 24 * 7,
   });
 };
 

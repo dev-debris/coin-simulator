@@ -1,10 +1,13 @@
-const useCandleChart = (data: Candle[]) => {
+import {useTheme} from '@emotion/react';
+
+const useCandleChart = (data: Candle[], ticker: Ticker) => {
+  const {colors} = useTheme();
   const candleSeries = data.map(({opening_price, high_price, low_price, trade_price, timestamp}) => ({
     x: timestamp + 9 * 1000 * 60 * 60,
     y: [opening_price, high_price, low_price, trade_price],
   }));
 
-  const chartData = {
+  const chartData: ApexChartProp = {
     series: [
       {
         data: candleSeries,
@@ -15,8 +18,11 @@ const useCandleChart = (data: Candle[]) => {
         type: 'candlestick',
       },
       title: {
-        text: 'CandleStick Chart',
+        text: ticker.market,
         align: 'left',
+        style: {
+          fontWeight: 'normal',
+        },
       },
       xaxis: {
         type: 'datetime',
@@ -31,8 +37,16 @@ const useCandleChart = (data: Candle[]) => {
           },
         },
       },
+      plotOptions: {
+        candlestick: {
+          colors: {
+            upward: colors.RISE,
+            downward: colors.FALL,
+          },
+        },
+      },
     },
-  } as unknown as ApexChartProp;
+  };
 
   return {chartData};
 };

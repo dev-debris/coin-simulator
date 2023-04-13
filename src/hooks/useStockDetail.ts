@@ -1,19 +1,19 @@
+import useCandleChart from './useCandleChart';
 import useCandleData from './useCandleData';
 
 const useStockDetail = (ticker: Ticker) => {
-  const data = useCandleData();
-
-  const converToKrw = (no: number) => new Intl.NumberFormat('kr', {style: 'currency', currency: 'KRW'}).format(no);
+  const {candleState, data, onChange} = useCandleData();
+  const {chartData} = useCandleChart(data, ticker);
 
   const convertedTicker = Object.entries(ticker).reduce(
-    (ticker, [k, v]) => ({
-      ...ticker,
-      [k]: k.includes('price') ? converToKrw(v) : v,
+    (newTicker, [k, v]) => ({
+      ...newTicker,
+      [k]: k.includes('price') ? (v as number).toLocaleString() : v,
     }),
-    {} as Ticker
+    ticker
   );
 
-  return {data, convertedTicker};
+  return {chartData, convertedTicker, candleState, onChange};
 };
 
 export default useStockDetail;
