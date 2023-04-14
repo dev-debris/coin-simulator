@@ -8,6 +8,7 @@ const RECOIL_KEY = {
   selectedCoin: 'selectedCoinState',
   selectedMarket: 'selectedMarket',
   isSelectedCoin: 'isSelectedCoinState',
+  purchasedCoinList: 'purchasedCoinListState',
 };
 
 export const favoriteCoinListState = atom<Market[]>({
@@ -39,4 +40,10 @@ export const isSelectedCoinState = selectorFamily<boolean, string>({
     ({get}) => {
       return get(selectedCoinState)?.market === market;
     },
+});
+
+export const purchasedCoinListState = atom<string[]>({
+  key: RECOIL_KEY.purchasedCoinList,
+  default: [],
+  effects: [storageEffect(RECOIL_KEY.purchasedCoinList, 'localStorage')],
 });
