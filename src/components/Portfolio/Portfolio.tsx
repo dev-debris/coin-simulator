@@ -1,25 +1,11 @@
+import PortfolioHeader from '../PortfolioHeader/PortfolioHeader';
 import * as S from './Portfolio.style';
 
-function Portfolio({netAssets, remainingCash, coinList}: PortfolioProp) {
+function Portfolio({coinList}: PortfolioProp) {
   return (
     <S.Wrapper>
       <S.Title>내 보유자산</S.Title>
-      <S.Header>
-        <S.DescriptionList>
-          <S.DescriptionListItem identifier="header">
-            <S.DescriptionTerm identifier="header">총 보유 자산</S.DescriptionTerm>
-            <S.DescriptionDetails identifier="header">
-              {netAssets.toLocaleString()} <S.Unit identifier="header">KRW</S.Unit>
-            </S.DescriptionDetails>
-          </S.DescriptionListItem>
-          <S.DescriptionListItem identifier="header">
-            <S.DescriptionTerm identifier="header">보유 KRW</S.DescriptionTerm>
-            <S.DescriptionDetails identifier="header">
-              {remainingCash.toLocaleString()} <S.Unit identifier="header">KRW</S.Unit>
-            </S.DescriptionDetails>
-          </S.DescriptionListItem>
-        </S.DescriptionList>
-      </S.Header>
+      <PortfolioHeader />
       <S.UnorderedList>
         {coinList.length ? (
           coinList.map(({name, subName, quantity, averagePrice, currentPrice}) => {

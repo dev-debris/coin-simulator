@@ -43,7 +43,7 @@ export const isSelectedCoinState = selectorFamily<boolean, string>({
     },
 });
 
-export const purchasedCoinListState = atom<string[]>({
+export const purchasedCoinListState = atom<PurchasedCoin[]>({
   key: RECOIL_KEY.purchasedCoinList,
   default: [],
   effects: [storageEffect(RECOIL_KEY.purchasedCoinList, 'localStorage')],
