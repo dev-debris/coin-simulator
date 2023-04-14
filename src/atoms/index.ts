@@ -9,6 +9,7 @@ const RECOIL_KEY = {
   selectedMarket: 'selectedMarket',
   isSelectedCoin: 'isSelectedCoinState',
   purchasedCoinList: 'purchasedCoinListState',
+  remainingCash: 'remainingCashState',
 };
 
 export const favoriteCoinListState = atom<Market[]>({
@@ -46,4 +47,10 @@ export const purchasedCoinListState = atom<string[]>({
   key: RECOIL_KEY.purchasedCoinList,
   default: [],
   effects: [storageEffect(RECOIL_KEY.purchasedCoinList, 'localStorage')],
+});
+
+export const remainingCashState = atom<number>({
+  key: RECOIL_KEY.remainingCash,
+  default: 100000000,
+  effects: [storageEffect(RECOIL_KEY.remainingCash, 'localStorage')],
 });
