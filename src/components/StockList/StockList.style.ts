@@ -1,4 +1,3 @@
-import {css} from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
@@ -83,33 +82,29 @@ export const FavoriteButton = styled.button`
   display: none;
 `;
 
-export const ToggleSwitch = styled.label<{isFavorite: boolean}>`
-  width: 40px;
-  height: 20px;
-  display: block;
+export const ToggleSwitch = styled.label<{isFavoriteList: boolean}>`
+  width: 20%;
+  height: 41px;
+  display: flex;
   position: relative;
-  border-radius: 30px;
   background-color: ${props =>
-    props.isFavorite ? props.theme.colors.BACKGROUND_SUB : props.theme.colors.BACKGROUND_MAIN};
-  box-shadow: 0 0 16px 3px rgba(0 0 0 / 15%);
+    props.isFavoriteList ? props.theme.colors.BACKGROUND_SUB : props.theme.colors.BACKGROUND_MAIN};
   cursor: pointer;
+  &:hover {
+    background-color: #f1f1f4;
+  }
   transition: all 0.2s ease-in;
 `;
 
-export const ToggleButton = styled.span<{isFavorite: boolean}>`
-  width: 15px;
-  height: 15px;
+export const ToggleButton = styled.span<{isFavoriteList: boolean}>`
+  display: flex;
   position: absolute;
+  left: 50%;
   top: 50%;
-  left: 4px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: ${props => (props.isFavorite ? props.theme.colors.BACKGROUND_MAIN : props.theme.colors.BACKGROUND_SUB)};
-  ${props =>
-    props.isFavorite &&
-    css`
-      left: calc(100% - 20px);
-    `}
+  transform: translateX(-50%) translateY(-50%);
+  background-color: rgba(0, 0, 0, 0);
+  color: ${props => (props.isFavoriteList ? 'gold' : props.theme.colors.FONT_SUB_BOLD)};
+  font-size: x-large;
   transition: all 0.2s ease-in;
 `;
 

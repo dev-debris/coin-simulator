@@ -4,8 +4,8 @@ import {getMonthsCandles} from '@/http';
 
 const useMonthCandleQuery = (request: MonthCandleRequest) => {
   return useQuery([QUERY_KEYS.candles, 'month'], {
-    initialData: [],
-    queryFn: () => getMonthsCandles(request),
+    queryFn: async () => await getMonthsCandles(request),
+    staleTime: 1000 * 60 * 60 * 24 * 28,
   });
 };
 

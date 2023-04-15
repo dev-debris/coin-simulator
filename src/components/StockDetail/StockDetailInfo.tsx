@@ -1,100 +1,75 @@
-import styled from '@emotion/styled';
+import * as S from './StockDetailInfo.style';
 
 const StockDetailInfo = ({
   market,
   trade_price,
   opening_price,
-  acc_trade_price,
-  acc_trade_price_24h,
-  acc_trade_volume,
-  acc_trade_volume_24h,
-  change,
-  change_price,
-  change_rate,
   high_price,
-  highest_52_week_date,
   highest_52_week_price,
   low_price,
-  lowest_52_week_date,
   lowest_52_week_price,
   prev_closing_price,
-  signed_change_price,
-  signed_change_rate,
-  timestamp,
-  trade_date,
-  trade_date_kst,
-  trade_time,
-  trade_time_kst,
-  trade_timestamp,
   trade_volume,
 }: Ticker) => {
   return (
     <>
-      <DetailTitle>{market}</DetailTitle>
-      <Grid>
-        <GridItem>
-          <Content>
-            <ContentTerm>Price</ContentTerm>
-            <ContentDesc>{trade_price}</ContentDesc>
-          </Content>
-          <Content>
-            <ContentTerm>Open</ContentTerm>
-            <ContentDesc>{opening_price}</ContentDesc>
-          </Content>
-          <Content>
-            <ContentTerm>Close</ContentTerm>
-            <ContentDesc>{prev_closing_price}</ContentDesc>
-          </Content>
-        </GridItem>
-        <GridItem>
-          <Content>
-            <ContentTerm>High</ContentTerm>
-            <ContentDesc>{high_price}</ContentDesc>
-          </Content>
-          <Content>
-            <ContentTerm>Low</ContentTerm>
-            <ContentDesc>{low_price}</ContentDesc>
-          </Content>
-          <Content>
-            <ContentTerm>Volume</ContentTerm>
-            <ContentDesc>{trade_volume}</ContentDesc>
-          </Content>
-        </GridItem>
-        <GridItem>
-          <Content>
-            <ContentTerm>52-Week High</ContentTerm>
-            <ContentDesc>{highest_52_week_price}</ContentDesc>
-          </Content>
-          <Content>
-            <ContentTerm>52-Week Low</ContentTerm>
-            <ContentDesc>{lowest_52_week_price}</ContentDesc>
-          </Content>
-        </GridItem>
-      </Grid>
+      <S.DetailTitle>{market}</S.DetailTitle>
+      <S.Grid>
+        <S.GridItem>
+          <S.Content>
+            <S.ContentTerm>Price</S.ContentTerm>
+            <S.ContentDesc>
+              {trade_price} <S.Unit>KRW</S.Unit>
+            </S.ContentDesc>
+          </S.Content>
+          <S.Content>
+            <S.ContentTerm>Open</S.ContentTerm>
+            <S.ContentDesc>
+              {opening_price} <S.Unit>KRW</S.Unit>
+            </S.ContentDesc>
+          </S.Content>
+          <S.Content>
+            <S.ContentTerm>Close</S.ContentTerm>
+            <S.ContentDesc>
+              {prev_closing_price} <S.Unit>KRW</S.Unit>
+            </S.ContentDesc>
+          </S.Content>
+        </S.GridItem>
+        <S.GridItem>
+          <S.Content>
+            <S.ContentTerm>High</S.ContentTerm>
+            <S.ContentDesc>
+              {high_price} <S.Unit>KRW</S.Unit>
+            </S.ContentDesc>
+          </S.Content>
+          <S.Content>
+            <S.ContentTerm>Low</S.ContentTerm>
+            <S.ContentDesc>
+              {low_price} <S.Unit>KRW</S.Unit>
+            </S.ContentDesc>
+          </S.Content>
+          <S.Content>
+            <S.ContentTerm>Volume</S.ContentTerm>
+            <S.ContentDesc>{trade_volume}</S.ContentDesc>
+          </S.Content>
+        </S.GridItem>
+        <S.GridItem>
+          <S.Content>
+            <S.ContentTerm>52-Week High</S.ContentTerm>
+            <S.ContentDesc>
+              {highest_52_week_price} <S.Unit>KRW</S.Unit>
+            </S.ContentDesc>
+          </S.Content>
+          <S.Content>
+            <S.ContentTerm>52-Week Low</S.ContentTerm>
+            <S.ContentDesc>
+              {lowest_52_week_price} <S.Unit>KRW</S.Unit>
+            </S.ContentDesc>
+          </S.Content>
+        </S.GridItem>
+      </S.Grid>
     </>
   );
 };
-
-const DetailTitle = styled.h2``;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 16px;
-`;
-
-const GridItem = styled.div``;
-
-const Content = styled.dl`
-  display: flex;
-  justify-content: space-between;
-  margin: 8px;
-`;
-
-const ContentTerm = styled.dt`
-  font-weight: bold;
-`;
-
-const ContentDesc = styled.dd``;
 
 export default StockDetailInfo;

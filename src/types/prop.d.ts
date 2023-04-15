@@ -22,30 +22,7 @@ interface StockChartProp {
   datas: Candle[];
 }
 
-interface ApexChartProp {
-  type?:
-    | 'line'
-    | 'area'
-    | 'bar'
-    | 'histogram'
-    | 'pie'
-    | 'donut'
-    | 'radialBar'
-    | 'scatter'
-    | 'bubble'
-    | 'heatmap'
-    | 'treemap'
-    | 'boxPlot'
-    | 'candlestick'
-    | 'radar'
-    | 'polarArea'
-    | 'rangeBar';
-  series?: ApexOptions['series'];
-  width?: string | number;
-  height?: string | number;
-  options?: ApexOptions;
-  [key: string]: any;
-}
+type ApexChartProp = import('react-apexcharts').Props;
 
 interface StockListItemProp {
   ticker: Market;
@@ -59,27 +36,14 @@ interface StockChartProp {
   datas: Candle[];
 }
 
-interface ApexChartProp {
-  type?:
-    | 'line'
-    | 'area'
-    | 'bar'
-    | 'histogram'
-    | 'pie'
-    | 'donut'
-    | 'radialBar'
-    | 'scatter'
-    | 'bubble'
-    | 'heatmap'
-    | 'treemap'
-    | 'boxPlot'
-    | 'candlestick'
-    | 'radar'
-    | 'polarArea'
-    | 'rangeBar';
-  series?: ApexOptions['series'];
-  width?: string | number;
-  height?: string | number;
-  options?: ApexOptions;
-  [key: string]: any;
+interface CandleState {
+  type: CandleType;
+  unit: MinuteCandleRequest['paths'][0];
+}
+interface ChartOptionData {
+  group: CandleType;
+  options: Array<{
+    value: number;
+    label: string;
+  }>;
 }

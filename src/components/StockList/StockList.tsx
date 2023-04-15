@@ -10,7 +10,7 @@ import StockListItem from './StockListItem';
 function StockList() {
   const [page, setPage] = useState<number>(0);
 
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [isFavoriteList, setIsFavoriteList] = useState<boolean>(false);
 
   const [keyword, setKeyword] = useState<string>('');
 
@@ -144,8 +144,8 @@ function StockList() {
         <S.FavoriteButton
           id="toggle"
           onClick={() => {
-            setIsFavorite(!isFavorite);
-            if (!isFavorite) {
+            setIsFavoriteList(!isFavoriteList);
+            if (!isFavoriteList) {
               setCurrentPosts(favorites);
             } else {
               setCurrentPosts([]);
@@ -153,8 +153,8 @@ function StockList() {
             setPage(0);
           }}
         ></S.FavoriteButton>
-        <S.ToggleSwitch isFavorite={isFavorite} htmlFor="toggle">
-          <S.ToggleButton isFavorite={isFavorite}>★</S.ToggleButton>
+        <S.ToggleSwitch isFavoriteList={isFavoriteList} htmlFor="toggle">
+          <S.ToggleButton isFavoriteList={isFavoriteList}>★</S.ToggleButton>
         </S.ToggleSwitch>
       </S.TopBar>
       {currentPosts[0]?.market === 'none' ? (

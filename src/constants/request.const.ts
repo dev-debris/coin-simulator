@@ -2,6 +2,7 @@ export const QUERY_KEYS = {
   ticker: 'ticker',
   markets: 'markets',
   candles: 'candles',
+  coinList: 'coinList',
 };
 
 export const MARKET_CODE = {
