@@ -1,5 +1,5 @@
 import {useQuery} from '@tanstack/react-query';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import {favoriteCoinListState} from '@/atoms';
 import {QUERY_KEYS} from '@/constants';
@@ -14,13 +14,7 @@ function StockList() {
 
   const [keyword, setKeyword] = useState<string>('');
 
-  const [keyItems, setKeyItems] = useState<Market[]>([]);
-
-  const [index, setIndex] = useState<number>(-1);
-
   const [currentPosts, setCurrentPosts] = useState<Market[]>([]);
-
-  const autoRef = useRef<HTMLUListElement>(null);
 
   const favorites = useRecoilValue(favoriteCoinListState);
 
@@ -43,8 +37,8 @@ function StockList() {
   }
 
   const updateData = () => {
-    let newKeyItems = allCoinList.filter(list => list.korean_name.includes(keyword.replace(/[\s]/g, '')) === true);
-    setKeyItems(newKeyItems);
+    let newPosts = allCoinList.filter(list => list.korean_name.includes(keyword.replace(/[\s]/g, '')) === true);
+    setCurrentPosts(newPosts);
   };
 
   const onChangeData = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,39 +47,8 @@ function StockList() {
   };
 
   const handleKeyArrow = (e: React.KeyboardEvent) => {
-    if (keyItems.length > 0) {
-      switch (e.key) {
-        case 'ArrowDown':
-          setIndex(index + 1);
-          if (autoRef.current?.childElementCount === index + 1) setIndex(0);
-          break;
-        case 'ArrowUp':
-          setIndex(index - 1);
-          if (index < 0) {
-            setKeyItems([]);
-            setIndex(-1);
-          }
-          break;
-        case 'Escape':
-          setKeyItems([]);
-          setIndex(-1);
-          break;
-        case 'Enter':
-          if (keyItems[index]) {
-            setCurrentPosts(allCoinList.filter(list => list.korean_name === keyItems[index].korean_name));
-          } else {
-            setCurrentPosts(keyItems);
-          }
-          setKeyword('');
-          setIndex(-1);
-          break;
-      }
-    } else {
-      if (e.key === 'Enter') {
-        setCurrentPosts([{market: 'none', korean_name: 'none', english_name: 'none'}]);
-        setKeyword('');
-        setIndex(-1);
-      }
+    if (keyword.length === 1 && e.key === 'Backspace') {
+      setCurrentPosts([]);
     }
   };
 
@@ -121,26 +84,7 @@ function StockList() {
             onChange={onChangeData}
             onKeyDown={handleKeyArrow}
           />
-          <S.SearchButton>검색</S.SearchButton>
         </S.SearchBar>
-        {keyItems.length > 0 && keyword && (
-          <S.AutoSearchContainer>
-            <S.AutoSearchWrap ref={autoRef}>
-              {keyItems.map((search, idx) => (
-                <S.AutoSearchData
-                  isFocus={index === idx ? true : false}
-                  key={search.korean_name}
-                  onClick={() => {
-                    setKeyword(search.korean_name);
-                  }}
-                >
-                  <a href="#">{search.korean_name}</a>
-                  <div>↖︎</div>
-                </S.AutoSearchData>
-              ))}
-            </S.AutoSearchWrap>
-          </S.AutoSearchContainer>
-        )}
         <S.FavoriteButton
           id="toggle"
           onClick={() => {
@@ -157,17 +101,13 @@ function StockList() {
           <S.ToggleButton isFavoriteList={isFavoriteList}>★</S.ToggleButton>
         </S.ToggleSwitch>
       </S.TopBar>
-      {currentPosts[0]?.market === 'none' ? (
-        <div>검색 결과가 존재하지 않습니다.</div>
-      ) : (
-        <S.BorderNone>
-          {(currentPosts.length == 0 ? allCoinList : currentPosts)
-            .slice(page * 10, (page + 1) * 10)
-            .map((market: Market) => (
-              <StockListItem ticker={market} key={market.market} />
-            ))}
-        </S.BorderNone>
-      )}
+      <S.BorderNone>
+        {(currentPosts.length == 0 ? allCoinList : currentPosts)
+          .slice(page * 10, (page + 1) * 10)
+          .map((market: Market) => (
+            <StockListItem ticker={market} key={market.market} />
+          ))}
+      </S.BorderNone>
       <S.Buttons>
         <S.PrevButton page={page} firstPage={firstPage} onClick={prevPage}>
           Prev
