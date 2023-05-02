@@ -6,20 +6,31 @@ import * as S from './CoinList.style';
 import CoinListItem from './CoinListItem';
 
 function CoinList() {
+  const [page, setPage] = useState<number>(0);
+
+  const [isFavoriteList, setIsFavoriteList] = useState<boolean>(false);
+
+  const [keyword, setKeyword] = useState<string>('');
+
   const favorites = useRecoilValue(favoriteCoinListState);
   const {data: allCoinList} = useCoinListQuery();
 
-  const [page, setPage] = useState(0);
-  const [isFavoriteList, setIsFavoriteList] = useState(false);
-
   const currentList = useMemo(
-    () => (isFavoriteList ? favorites : allCoinList),
-    [isFavoriteList, favorites, allCoinList]
+    () =>
+      (isFavoriteList ? favorites : allCoinList).filter(
+        ({korean_name}) => keyword === '' || korean_name.includes(keyword.replace(/[\s]/g, ''))
+      ),
+    [isFavoriteList, favorites, allCoinList, keyword]
   );
 
   if (!currentList) {
     return <div>loading</div>;
   }
+
+  const onChangeData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setKeyword(e.currentTarget.value);
+  };
 
   const firstPage = 0;
   const lastPage = Math.floor(currentList.length / 10);
@@ -35,10 +46,9 @@ function CoinList() {
     <S.Wrapper>
       <S.TopBar>
         <S.SearchBar>
-          <S.Search type="text" placeholder="코인명/심볼검색" />
-          <S.SearchButton type="submit">검색</S.SearchButton>
+          <S.Search type="search" placeholder="코인명/심볼검색" value={keyword || ''} onChange={onChangeData} />
         </S.SearchBar>
-        <S.FavoriteButton id="toggle" onClick={onClickFavoriteButton}></S.FavoriteButton>
+        <S.FavoriteButton id="toggle" onClick={onClickFavoriteButton} />
         <S.ToggleSwitch isFavoriteList={isFavoriteList} htmlFor="toggle">
           <S.ToggleButton isFavoriteList={isFavoriteList}>★</S.ToggleButton>
         </S.ToggleSwitch>
