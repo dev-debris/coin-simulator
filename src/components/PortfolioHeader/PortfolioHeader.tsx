@@ -25,6 +25,7 @@ function PortfolioHeader() {
 
   return (
     <S.Header>
+      <S.Title>내 보유자산</S.Title>
       <S.HeaderList>
         <S.HeaderListItem>
           <S.ItemTitle>총 보유 자산</S.ItemTitle>

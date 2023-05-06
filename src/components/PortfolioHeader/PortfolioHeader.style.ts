@@ -2,6 +2,13 @@ import styled from '@emotion/styled';
 
 export const Header = styled.header``;
 
+export const Title = styled.h2`
+  color: ${props => props.theme.colors.FONT_MAIN};
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  margin-left: 20px;
+`;
+
 export const HeaderList = styled.dl``;
 
 export const HeaderListItem = styled.div`
