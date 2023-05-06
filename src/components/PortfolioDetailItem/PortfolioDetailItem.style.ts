@@ -25,6 +25,7 @@ export const CoinName = styled.h3`
   font-size: 12px;
   font-weight: bold;
   color: ${props => props.theme.colors.FONT_MAIN};
+  white-space: pre-line;
 `;
 
 export const HeaderList = styled.dl`

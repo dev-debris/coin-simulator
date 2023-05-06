@@ -37,10 +37,7 @@ function PortfolioDetailItem({
   return (
     <S.PortfolioDetail>
       <S.Header>
-        <S.CoinName>
-          {korean_name}
-          <br />({english_name})
-        </S.CoinName>
+        <S.CoinName>{`${korean_name}\n${english_name}`}</S.CoinName>
         <S.HeaderList>
           {headerItemList.map(({title, value, formatted}) => (
             <S.HeaderListItem key={title}>
