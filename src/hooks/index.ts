@@ -1,1 +1,1 @@
-export {default as useStockDetail} from './useStockDetail';
+export {default as useCoinDetail} from './useCoinDetail';

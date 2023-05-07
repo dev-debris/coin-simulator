@@ -1,13 +1,10 @@
 import styled from '@emotion/styled';
-import {useQuery} from '@tanstack/react-query';
-import {Container, Portfolio, Search, StockDetail, StockList, Trade} from '@/components';
-import {MARKET_CODE, QUERY_KEYS} from '@/constants';
-import {getTicker} from '../src/http/index';
+import {useRecoilValue} from 'recoil';
+import {selectedCoinState} from '@/atoms';
+import {Container, Portfolio, Search, CoinDetail, CoinList, Trade} from '@/components';
 
 function HomePage() {
-  const {data} = useQuery([QUERY_KEYS.markets], {
-    queryFn: () => getTicker({queries: {markets: MARKET_CODE['krw-btc']}}),
-  });
+  const selectedCoin = useRecoilValue(selectedCoinState);
 
   return (
     <Container>
@@ -19,10 +16,10 @@ function HomePage() {
           </LeftChild>
           <LeftChild>
             <Search />
-            <StockList />
+            <CoinList />
           </LeftChild>
         </Left>
-        <Right>{data && <StockDetail ticker={data[0]} />}</Right>
+        <Right>{selectedCoin && <CoinDetail coin={selectedCoin} />}</Right>
       </Root>
     </Container>
   );

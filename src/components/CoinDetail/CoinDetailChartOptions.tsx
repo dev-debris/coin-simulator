@@ -1,4 +1,4 @@
-const StockDetailChartOptions = () => {
+const CoinDetailChartOptions = () => {
   return (
     <>
       {optionData.map(({group, options}) =>
@@ -31,4 +31,4 @@ const optionData: ChartOptionData[] = [
   {group: 'months', options: [{value: 1, label: '1M'}]},
 ];
 
-export default StockDetailChartOptions;
+export default CoinDetailChartOptions;

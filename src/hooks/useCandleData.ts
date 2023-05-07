@@ -1,21 +1,15 @@
 import {ChangeEvent, useEffect, useState} from 'react';
-import {MARKET_CODE} from '@/constants';
 import {useDayCandleQuery, useMinuteCandleQuery, useMonthCandleQuery, useWeekCandleQuery} from './queries';
 
-/**
- * @todo 상태 변경 가능하도록 수정하기
- */
-const DEFAULT_QUERIES = {count: 50, market: MARKET_CODE['krw-btc']};
-
-const useCandleData = () => {
+const useCandleData = (coin: Coin) => {
   const [candleState, setCandleState] = useState<CandleState>({type: 'minutes', unit: 15});
   const {type, unit} = candleState;
   const [data, setData] = useState<Candle[]>([]);
 
-  const {data: dataMinute} = useMinuteCandleQuery({paths: [unit], queries: DEFAULT_QUERIES});
-  const {data: dataDay} = useDayCandleQuery({queries: DEFAULT_QUERIES});
-  const {data: dataWeek} = useWeekCandleQuery({queries: DEFAULT_QUERIES});
-  const {data: dataMonth} = useMonthCandleQuery({queries: DEFAULT_QUERIES});
+  const {data: dataMinute} = useMinuteCandleQuery({paths: [unit], queries: {count: 50, market: coin.market}});
+  const {data: dataDay} = useDayCandleQuery({queries: {count: 50, market: coin.market}});
+  const {data: dataWeek} = useWeekCandleQuery({queries: {count: 50, market: coin.market}});
+  const {data: dataMonth} = useMonthCandleQuery({queries: {count: 50, market: coin.market}});
 
   useEffect(() => {
     if (dataMinute && dataDay && dataWeek && dataMonth)
