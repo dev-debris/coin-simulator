@@ -1,6 +1,6 @@
 import {useCoinDetail} from '@/hooks';
+import Chart from './Chart';
 import * as S from './CoinDetail.style';
-import CoinDetailChart from './CoinDetailChart';
 import CoinDetailChartOptions from './CoinDetailChartOptions';
 import CoinDetailInfo from './CoinDetailInfo';
 
@@ -19,7 +19,7 @@ function CoinDetail({coin}: CoinDetailProp) {
         <S.Select onChange={onChange} defaultValue={`${type} ${unit}`}>
           <CoinDetailChartOptions />
         </S.Select>
-        <CoinDetailChart type={'candlestick'} {...chartData} />
+        <Chart type={'candlestick'} {...chartData} />
       </S.ChartWrapper>
     </S.Container>
   );

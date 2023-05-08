@@ -1,9 +1,16 @@
-import dynamic from 'next/dynamic';
+import Chart from '@/components/CoinDetail/Chart';
+import * as S from './CoinDetail.style';
+import StockDetailChartOptions from './CoinDetailChartOptions';
 
-const ApexChart = dynamic(() => import('react-apexcharts').then(ReactApexChart => ReactApexChart), {ssr: false});
-
-const CoinDetailChart = (props: ApexChartProp) => {
-  return <ApexChart {...props} />;
+const CoinDetailChart = ({chartData, type, unit, onChange}: CoinDetailChartProp) => {
+  return (
+    <S.ChartWrapper>
+      <S.Select onChange={onChange} defaultValue={`${type} ${unit}`}>
+        <StockDetailChartOptions />
+      </S.Select>
+      <Chart type={'candlestick'} {...chartData} />
+    </S.ChartWrapper>
+  );
 };
 
 export default CoinDetailChart;

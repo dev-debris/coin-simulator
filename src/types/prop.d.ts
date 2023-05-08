@@ -31,3 +31,10 @@ interface ChartOptionData {
     label: string;
   }>;
 }
+
+interface CoinDetailChartProp {
+  chartData: ApexChartProp;
+  type: string;
+  unit: number;
+  onChange: (e: import('react').ChangeEvent<HTMLSelectElement>) => void;
+}
