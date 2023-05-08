@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const StockListBody = styled.tbody<{isSelected: boolean}>`
+export const CoinListBody = styled.tbody<{isSelected: boolean}>`
   height: 45px;
   width: 100%;
   vertical-align: middle;
@@ -21,7 +21,7 @@ export const Favorites = styled.button`
   cursor: pointer;
 `;
 
-export const StockName = styled.td`
+export const CoinName = styled.td`
   width: 50%;
   flex: 1;
   color: #333333;
@@ -35,7 +35,7 @@ export const StockName = styled.td`
   }
 `;
 
-export const StockPrice = styled.td<{fixedChangeRate: number}>`
+export const CoinPrice = styled.td<{fixedChangeRate: number}>`
   width: 40%;
   flex: 1;
   color: ${props =>
@@ -49,7 +49,7 @@ export const StockPrice = styled.td<{fixedChangeRate: number}>`
   cursor: default;
 `;
 
-export const StockChangeRate = styled.td<{fixedChangeRate: number}>`
+export const CoinChangeRate = styled.td<{fixedChangeRate: number}>`
   width: 50%;
   flex: 1;
   color: ${props =>
@@ -63,7 +63,7 @@ export const StockChangeRate = styled.td<{fixedChangeRate: number}>`
   cursor: default;
 `;
 
-export const StockAccTradePrice = styled.td`
+export const CoinAccTradePrice = styled.td`
   width: 40%;
   flex: 1;
   color: #333333;

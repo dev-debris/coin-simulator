@@ -1,6 +1,6 @@
 import {useTheme} from '@emotion/react';
 
-const useCandleChart = (data: Candle[], ticker: Ticker) => {
+const useCandleChart = (data: Candle[], coin: Coin) => {
   const {colors} = useTheme();
   const candleSeries = data.map(({opening_price, high_price, low_price, trade_price, timestamp}) => ({
     x: timestamp + 9 * 1000 * 60 * 60,
@@ -18,7 +18,7 @@ const useCandleChart = (data: Candle[], ticker: Ticker) => {
         type: 'candlestick',
       },
       title: {
-        text: ticker.market,
+        text: coin.market,
         align: 'left',
         style: {
           fontWeight: 'normal',

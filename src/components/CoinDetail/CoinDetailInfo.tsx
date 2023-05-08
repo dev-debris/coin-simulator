@@ -1,16 +1,18 @@
-import * as S from './StockDetailInfo.style';
+import * as S from './CoinDetailInfo.style';
 
-const StockDetailInfo = ({
-  market,
-  trade_price,
-  opening_price,
-  high_price,
-  highest_52_week_price,
-  low_price,
-  lowest_52_week_price,
-  prev_closing_price,
-  trade_volume,
-}: Ticker) => {
+const CoinDetailInfo = ({
+  coin: {
+    market,
+    trade_price,
+    opening_price,
+    high_price,
+    highest_52_week_price,
+    low_price,
+    lowest_52_week_price,
+    prev_closing_price,
+    trade_volume,
+  },
+}: CoinDetailInfoProp) => {
   return (
     <>
       <S.DetailTitle>{market}</S.DetailTitle>
@@ -72,4 +74,4 @@ const StockDetailInfo = ({
   );
 };
 
-export default StockDetailInfo;
+export default CoinDetailInfo;

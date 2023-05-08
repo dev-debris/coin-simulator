@@ -2,38 +2,22 @@ interface ChildrenProp {
   children: import('react').ReactNode;
 }
 
-interface PortfolioProp {
-  netAssets: number;
-  remainingCash: number;
-  coinList: Array<{
-    name: string;
-    subName: string;
-    averagePrice: number;
-    currentPrice: number;
-    quantity: number;
-  }>;
+interface PortfolioDetailItemProp {
+  coin: PurchasedCoin;
 }
 
-interface StockDetailProp {
-  ticker: Ticker;
+interface CoinDetailProp {
+  coin: Coin;
 }
 
-interface StockChartProp {
-  datas: Candle[];
+interface CoinDetailInfoProp {
+  coin: Coin;
 }
 
 type ApexChartProp = import('react-apexcharts').Props;
 
-interface StockListItemProp {
-  ticker: Market;
-}
-
-interface StockDetailProp {
-  ticker: Ticker;
-}
-
-interface StockChartProp {
-  datas: Candle[];
+interface CoinListItemProp {
+  coin: Coin;
 }
 
 interface CandleState {

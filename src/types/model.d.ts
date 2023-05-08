@@ -48,3 +48,11 @@ interface Market {
 }
 
 type Coin = Ticker & Market;
+
+interface PurchasedCoinSummary {
+  market: string;
+  quantity: number;
+  averagePrice: number;
+}
+
+type PurchasedCoin = Coin & PurchasedCoinSummary;

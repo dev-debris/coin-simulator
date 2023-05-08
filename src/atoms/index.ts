@@ -8,15 +8,17 @@ const RECOIL_KEY = {
   selectedCoin: 'selectedCoinState',
   selectedMarket: 'selectedMarket',
   isSelectedCoin: 'isSelectedCoinState',
+  purchasedCoinList: 'purchasedCoinListState',
+  remainingCash: 'remainingCashState',
 };
 
-export const favoriteCoinListState = atom<Market[]>({
+export const favoriteCoinListState = atom<Coin[]>({
   key: RECOIL_KEY.favoriteCoinList,
   default: [],
   effects: [storageEffect(RECOIL_KEY.favoriteCoinList, 'localStorage')],
 });
 
-export const isFavoriteMarketState = selectorFamily<boolean, string>({
+export const isFavoriteCoinState = selectorFamily<boolean, string>({
   key: RECOIL_KEY.isFavoriteMarket,
   get:
     market =>
@@ -27,7 +29,7 @@ export const isFavoriteMarketState = selectorFamily<boolean, string>({
     },
 });
 
-export const selectedCoinState = atom<Market | null>({
+export const selectedCoinState = atom<Coin | null>({
   key: RECOIL_KEY.selectedCoin,
   default: null,
 });
@@ -39,4 +41,16 @@ export const isSelectedCoinState = selectorFamily<boolean, string>({
     ({get}) => {
       return get(selectedCoinState)?.market === market;
     },
+});
+
+export const purchasedCoinListState = atom<PurchasedCoinSummary[]>({
+  key: RECOIL_KEY.purchasedCoinList,
+  default: [],
+  effects: [storageEffect(RECOIL_KEY.purchasedCoinList, 'localStorage')],
+});
+
+export const remainingCashState = atom<number>({
+  key: RECOIL_KEY.remainingCash,
+  default: 100000000,
+  effects: [storageEffect(RECOIL_KEY.remainingCash, 'localStorage')],
 });
