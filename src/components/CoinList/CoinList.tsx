@@ -1,7 +1,7 @@
 import {useMemo, useState} from 'react';
 import {useRecoilValue} from 'recoil';
-import {favoriteCoinListState} from '@/atoms';
 import {useCoinListQuery} from '@/hooks/queries';
+import {favoriteCoinListState} from '@/recoil/atoms';
 import * as S from './CoinList.style';
 import CoinListItem from './CoinListItem';
 
