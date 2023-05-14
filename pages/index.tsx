@@ -1,11 +1,7 @@
 import styled from '@emotion/styled';
-import {useRecoilValue} from 'recoil';
-import {selectedCoinState} from '@/atoms';
 import {Container, Portfolio, Search, CoinDetail, CoinList, Trade} from '@/components';
 
 function HomePage() {
-  const selectedCoin = useRecoilValue(selectedCoinState);
-
   return (
     <Container>
       <Root>
@@ -19,7 +15,9 @@ function HomePage() {
             <CoinList />
           </LeftChild>
         </Left>
-        <Right>{selectedCoin && <CoinDetail coin={selectedCoin} />}</Right>
+        <Right>
+          <CoinDetail />
+        </Right>
       </Root>
     </Container>
   );
