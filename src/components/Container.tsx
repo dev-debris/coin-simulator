@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import {PropsWithChildren} from 'react';
 
-function Container({children}: ChildrenProp) {
+function Container({children}: PropsWithChildren) {
   return <Wrapper>{children}</Wrapper>;
 }
 
