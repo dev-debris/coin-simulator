@@ -7,4 +7,5 @@ export const RECOIL_KEY = {
   isSelectedCoin: 'isSelectedCoinState',
   purchasedCoinList: 'purchasedCoinListState',
   remainingCash: 'remainingCashState',
+  convertedSelectedCoin: 'convertedSelectedCoinState',
 };

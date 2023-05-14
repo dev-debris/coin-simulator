@@ -1,4 +1,4 @@
-import {selectorFamily} from 'recoil';
+import {selector, selectorFamily} from 'recoil';
 import {RECOIL_KEY} from '@/recoil';
 import {favoriteCoinListState, selectedCoinState} from '@/recoil/atoms';
 
@@ -20,4 +20,16 @@ export const isSelectedCoinState = selectorFamily<boolean, string>({
     ({get}) => {
       return get(selectedCoinState)?.market === market;
     },
+});
+
+export const convertedSelectedCoinState = selector({
+  key: RECOIL_KEY.convertedSelectedCoin,
+  get: ({get}) => {
+    const coin = get(selectedCoinState) ?? ({} as Coin);
+
+    return Object.entries(coin).reduce(
+      (newCoin, [k, v]) => ({...newCoin, [k]: k.includes('price') ? (v as number).toLocaleString() : v}),
+      coin
+    );
+  },
 });
