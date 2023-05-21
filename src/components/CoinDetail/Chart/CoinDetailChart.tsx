@@ -14,17 +14,17 @@ const CoinDetailChart = () => {
   } = useCandleData();
   const {chartData} = useCandleChart(data);
 
+  if (!data.length) {
+    return null;
+  }
+
   return (
-    <>
-      {data.length > 0 ? (
-        <S.ChartWrapper>
-          <S.Select onChange={onChange} defaultValue={`${type} ${unit}`}>
-            <CoinDetailChartOptions />
-          </S.Select>
-          <Chart type={'candlestick'} {...chartData} />
-        </S.ChartWrapper>
-      ) : null}
-    </>
+    <S.ChartWrapper>
+      <S.Select onChange={onChange} defaultValue={`${type} ${unit}`}>
+        <CoinDetailChartOptions />
+      </S.Select>
+      <Chart type={'candlestick'} {...chartData} />
+    </S.ChartWrapper>
   );
 };
 
