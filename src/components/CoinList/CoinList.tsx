@@ -1,8 +1,8 @@
 import {useMemo, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import {useCoinListQuery} from '@/hooks/queries';
-import {hangulToSpell} from '@/utils/hangulToSpell';
 import {favoriteCoinListState} from '@/recoil/atoms';
+import {hangulToSpell} from '@/utils/hangulToSpell';
 import * as S from './CoinList.style';
 import CoinListItem from './CoinListItem';
 
@@ -50,7 +50,6 @@ function CoinList() {
       <S.TopBar>
         <S.SearchBar>
           <S.Search type="search" value={keyword || ''} onChange={onChangeData} placeholder="코인명/심볼검색" />
-          <S.SearchButton type="submit">검색</S.SearchButton>
         </S.SearchBar>
         <S.FavoriteButton id="toggle" onClick={onClickFavoriteButton} />
         <S.ToggleSwitch isFavoriteList={isFavoriteList} htmlFor="toggle">
