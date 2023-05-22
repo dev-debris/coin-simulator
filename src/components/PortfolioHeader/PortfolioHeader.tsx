@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import {useCoinListQuery} from '@/hooks/queries';
 import {purchasedCoinListState, remainingCashState} from '@/recoil/atoms';
@@ -8,6 +8,7 @@ function PortfolioHeader() {
   const remainingCash = useRecoilValue(remainingCashState);
   const purchasedCoinList = useRecoilValue(purchasedCoinListState);
   const {data: allCoinList} = useCoinListQuery();
+  const [hydrated, setHydrated] = useState(false);
   const netAssets = useMemo(
     () =>
       remainingCash +
@@ -22,6 +23,14 @@ function PortfolioHeader() {
       }, 0),
     [remainingCash, purchasedCoinList, allCoinList]
   );
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) {
+    return null;
+  }
 
   return (
     <S.Header>

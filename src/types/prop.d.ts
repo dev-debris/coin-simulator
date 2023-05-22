@@ -20,3 +20,15 @@ interface ChartOptionData {
     label: string;
   }>;
 }
+
+interface TradeCoinProp {
+  selectedCoin: Coin;
+}
+
+interface TradeOptionsProp {
+  selectedCoin: Coin;
+}
+
+interface NumberInputProp {
+  onChange: (value: number | null) => any;
+}
