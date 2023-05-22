@@ -1,17 +1,12 @@
 import {useMemo, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import {useCoinListQuery} from '@/hooks/queries';
+import {hangulToSpell} from '@/utils/hangulToSpell';
 import {favoriteCoinListState} from '@/recoil/atoms';
 import * as S from './CoinList.style';
 import CoinListItem from './CoinListItem';
 
 function CoinList() {
-  const [page, setPage] = useState<number>(0);
-
-  const [isFavoriteList, setIsFavoriteList] = useState<boolean>(false);
-
-  const [keyword, setKeyword] = useState<string>('');
-
   const favorites = useRecoilValue(favoriteCoinListState);
   const {data: allCoinList} = useCoinListQuery();
 
@@ -23,8 +18,9 @@ function CoinList() {
     () =>
       (isFavoriteList ? favorites : allCoinList).filter(
         list =>
-          (list.korean_name.includes(keyword.replace(/[\s]/g, '')) ||
-            list.english_name.toLowerCase().includes(keyword.toLowerCase().replace(/[\s]/g, '')) ||
+          (hangulToSpell(list.korean_name).includes(hangulToSpell(keyword.replace(/[\s]/g, ''))) ||
+            list.korean_name.includes(keyword.replace(/[\s]/g, '')) ||
+            list.english_name.toLowerCase().replace(/[\s]/g, '').includes(keyword.toLowerCase().replace(/[\s]/g, '')) ||
             list.market.toLowerCase().includes(keyword.toLowerCase().replace(/[\s]/g, ''))) === true
       ),
     [isFavoriteList, favorites, allCoinList, keyword]
@@ -33,11 +29,6 @@ function CoinList() {
   if (!currentList) {
     return <div>loading</div>;
   }
-
-  const onChangeData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setKeyword(e.currentTarget.value);
-  };
 
   const onChangeData = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
