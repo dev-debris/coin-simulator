@@ -30,16 +30,6 @@ export const Search = styled.input`
   border-right: 1px solid ${props => props.theme.colors.BORDER};
 `;
 
-export const SearchButton = styled.button`
-  width: 25%;
-  height: 41px;
-  border: none;
-  color: ${props => props.theme.colors.FONT_MAIN};
-  background-color: ${props => props.theme.colors.BACKGROUND_MAIN};
-  border-right: 1px solid ${props => props.theme.colors.BORDER};
-  cursor: pointer;
-`;
-
 export const FavoriteButton = styled.button`
   display: none;
 `;
