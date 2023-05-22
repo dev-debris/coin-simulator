@@ -1,24 +1,27 @@
 import {useMemo, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import {useCoinListQuery} from '@/hooks/queries';
+import {hangulToSpell} from '@/utils/hangulToSpell';
 import {favoriteCoinListState} from '@/recoil/atoms';
 import * as S from './CoinList.style';
 import CoinListItem from './CoinListItem';
 
 function CoinList() {
-  const [page, setPage] = useState<number>(0);
-
-  const [isFavoriteList, setIsFavoriteList] = useState<boolean>(false);
-
-  const [keyword, setKeyword] = useState<string>('');
-
   const favorites = useRecoilValue(favoriteCoinListState);
   const {data: allCoinList} = useCoinListQuery();
+
+  const [page, setPage] = useState<number>(0);
+  const [isFavoriteList, setIsFavoriteList] = useState<boolean>(false);
+  const [keyword, setKeyword] = useState<string>('');
 
   const currentList = useMemo(
     () =>
       (isFavoriteList ? favorites : allCoinList).filter(
-        ({korean_name}) => keyword === '' || korean_name.includes(keyword.replace(/[\s]/g, ''))
+        list =>
+          (hangulToSpell(list.korean_name).includes(hangulToSpell(keyword.replace(/[\s]/g, ''))) ||
+            list.korean_name.includes(keyword.replace(/[\s]/g, '')) ||
+            list.english_name.toLowerCase().replace(/[\s]/g, '').includes(keyword.toLowerCase().replace(/[\s]/g, '')) ||
+            list.market.toLowerCase().includes(keyword.toLowerCase().replace(/[\s]/g, ''))) === true
       ),
     [isFavoriteList, favorites, allCoinList, keyword]
   );
@@ -46,7 +49,8 @@ function CoinList() {
     <S.Wrapper>
       <S.TopBar>
         <S.SearchBar>
-          <S.Search type="search" placeholder="코인명/심볼검색" value={keyword || ''} onChange={onChangeData} />
+          <S.Search type="search" value={keyword || ''} onChange={onChangeData} placeholder="코인명/심볼검색" />
+          <S.SearchButton type="submit">검색</S.SearchButton>
         </S.SearchBar>
         <S.FavoriteButton id="toggle" onClick={onClickFavoriteButton} />
         <S.ToggleSwitch isFavoriteList={isFavoriteList} htmlFor="toggle">
