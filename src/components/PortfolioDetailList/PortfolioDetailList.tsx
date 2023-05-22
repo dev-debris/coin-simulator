@@ -1,6 +1,6 @@
 import {useRecoilValue} from 'recoil';
-import {purchasedCoinListState} from '@/atoms';
 import {useCoinListQuery} from '@/hooks/queries';
+import {purchasedCoinListState} from '@/recoil/atoms';
 import PortfolioDetailItem from '../PortfolioDetailItem/PortfolioDetailItem';
 import * as S from './PortfolioDetailList.style';
 

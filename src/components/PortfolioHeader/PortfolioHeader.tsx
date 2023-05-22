@@ -1,7 +1,7 @@
 import {useMemo} from 'react';
 import {useRecoilValue} from 'recoil';
-import {purchasedCoinListState, remainingCashState} from '@/atoms';
 import {useCoinListQuery} from '@/hooks/queries';
+import {purchasedCoinListState, remainingCashState} from '@/recoil/atoms';
 import * as S from './PortfolioHeader.style';
 
 function PortfolioHeader() {

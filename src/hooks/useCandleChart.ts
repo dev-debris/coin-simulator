@@ -1,6 +1,9 @@
 import {useTheme} from '@emotion/react';
+import {useRecoilValue} from 'recoil';
+import {selectedCoinState} from '@/recoil/atoms';
 
-const useCandleChart = (data: Candle[], coin: Coin) => {
+const useCandleChart = (data: Candle[]) => {
+  const coin = useRecoilValue(selectedCoinState);
   const {colors} = useTheme();
   const candleSeries = data.map(({opening_price, high_price, low_price, trade_price, timestamp}) => ({
     x: timestamp + 9 * 1000 * 60 * 60,
@@ -18,7 +21,7 @@ const useCandleChart = (data: Candle[], coin: Coin) => {
         type: 'candlestick',
       },
       title: {
-        text: coin.market,
+        text: coin?.market,
         align: 'left',
         style: {
           fontWeight: 'normal',

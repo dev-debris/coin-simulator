@@ -1,5 +1,6 @@
 import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
-import {favoriteCoinListState, isFavoriteCoinState, isSelectedCoinState, selectedCoinState} from '@/atoms';
+import {favoriteCoinListState, selectedCoinState} from '@/recoil/atoms';
+import {isFavoriteCoinState, isSelectedCoinState} from '@/recoil/selectors';
 import * as S from './CoinListItem.style';
 
 function CoinListItem({coin}: CoinListItemProp) {

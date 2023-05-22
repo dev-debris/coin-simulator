@@ -1,6 +1,6 @@
 import {ChangeEventHandler, useState} from 'react';
 import {useRecoilValue} from 'recoil';
-import {selectedCoinState} from '@/atoms';
+import {selectedCoinState} from '@/recoil/atoms';
 import * as S from './Trade.style';
 
 function Trade() {

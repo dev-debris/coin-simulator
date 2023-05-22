@@ -1,21 +1,23 @@
+import {useRecoilValue} from 'recoil';
+import {convertedSelectedCoinState} from '@/recoil/selectors';
 import * as S from './CoinDetailInfo.style';
 
-const CoinDetailInfo = ({
-  coin: {
+const CoinDetailInfo = () => {
+  const {
     market,
     trade_price,
     opening_price,
-    high_price,
-    highest_52_week_price,
-    low_price,
-    lowest_52_week_price,
     prev_closing_price,
+    high_price,
+    low_price,
     trade_volume,
-  },
-}: CoinDetailInfoProp) => {
+    highest_52_week_price,
+    lowest_52_week_price,
+  } = useRecoilValue(convertedSelectedCoinState);
+
   return (
     <>
-      <S.DetailTitle>{market}</S.DetailTitle>
+      <S.DetailTitle>{market || '코인명'}</S.DetailTitle>
       <S.Grid>
         <S.GridItem>
           <S.Content>
