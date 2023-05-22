@@ -24,7 +24,8 @@ function CoinList() {
       (isFavoriteList ? favorites : allCoinList).filter(
         list =>
           (list.korean_name.includes(keyword.replace(/[\s]/g, '')) ||
-            list.english_name.toLowerCase().includes(keyword.toLowerCase().replace(/[\s]/g, ''))) === true
+            list.english_name.toLowerCase().includes(keyword.toLowerCase().replace(/[\s]/g, '')) ||
+            list.market.toLowerCase().includes(keyword.toLowerCase().replace(/[\s]/g, ''))) === true
       ),
     [isFavoriteList, favorites, allCoinList, keyword]
   );
